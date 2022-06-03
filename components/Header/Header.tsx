@@ -8,7 +8,7 @@ const Header = () => {
 				<Image width={227.67} height={22} src="/logo.svg" alt="" className=""></Image>
 			</div>
 			<div className="cont flex">
-				<a className="lang mini_modal_link" data-modal-id="#modal_languages">
+				<a className="lang mini_modal_link" data-modal-id="#modal_languages" href="#main">
 					EN
 				</a>
 				<button type="button" className="generator" style={{ display: "block" }}>
