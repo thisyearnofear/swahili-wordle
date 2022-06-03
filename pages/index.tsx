@@ -1,5 +1,11 @@
-const App = () => {
-	return <div>App</div>;
-};
+import Game from "components/Game/Game";
+import Header from "components/Header/Header";
 
-export default App;
+export default function App() {
+	return (
+		<>
+			<Header />
+			<Game />
+		</>
+	);
+}

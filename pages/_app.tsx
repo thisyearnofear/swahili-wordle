@@ -1,8 +1,9 @@
-import "styles/globals.css";
-import "styles/globals.css";
+import "styles/main.min.css";
+import "styles/wordle.min.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
+import Layout from "components/Layout/Layout";
 import { store } from "store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<link rel="icon" href="/favicon.png" />
 			</Head>
 			<Provider store={store}>
-				<Component {...pageProps} />
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
 			</Provider>
 		</>
 	);

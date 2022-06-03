@@ -1,16 +1,34 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
+export type Keys = {
+	0: string[];
+	1: string[];
+	2: string[];
+	3: string[];
+	4: string[];
+	5: string[];
+};
+
+export type CurrentRow = keyof Keys | 6;
+
 export interface BoardState {
-	currentRow: number;
-	currentKeys: string[];
+	currentRow: CurrentRow;
+	keys: Keys;
 	backspace: boolean;
 	enter: boolean;
 }
 
 const initialState: BoardState = {
 	currentRow: 0,
-	currentKeys: [],
+	keys: {
+		0: [] as string[],
+		1: [] as string[],
+		2: [] as string[],
+		3: [] as string[],
+		4: [] as string[],
+		5: [] as string[],
+	},
 	backspace: false,
 	enter: false,
 };
@@ -19,11 +37,11 @@ export const boardSlice = createSlice({
 	name: "board",
 	initialState,
 	reducers: {
-		setCurrentRow: (state, action: PayloadAction<number>) => {
+		setCurrentRow: (state, action: PayloadAction<CurrentRow>) => {
 			state.currentRow = action.payload;
 		},
-		setCurrentKeys: (state, action: PayloadAction<string[]>) => {
-			state.currentKeys = action.payload;
+		setCurrentKeys: (state, action: PayloadAction<Partial<Keys>>) => {
+			state.keys = { ...state.keys, ...action.payload };
 		},
 		setBackspace: (state, action: PayloadAction<boolean>) => {
 			state.backspace = action.payload;
@@ -37,7 +55,7 @@ export const boardSlice = createSlice({
 export const { setCurrentRow, setCurrentKeys, setBackspace, setEnter } = boardSlice.actions;
 
 export const selectCurrentRow = (state: RootState) => state.board.currentRow;
-export const selectCurrentKeys = (state: RootState) => state.board.currentKeys;
+export const selectCurrentKeys = (state: RootState) => state.board.keys;
 export const selectBackspace = (state: RootState) => state.board.backspace;
 export const selectEnter = (state: RootState) => state.board.enter;
 
