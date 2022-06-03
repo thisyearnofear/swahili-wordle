@@ -3,11 +3,11 @@ import { checkLength } from "utils/check-length";
 import { randomWord } from "utils/words";
 import { encodeURL as encode } from "js-base64";
 
-type Data = {
+export type Data = {
 	word: string;
 };
 
-type Error = {
+export type Error = {
 	error: string;
 	message?: string;
 };

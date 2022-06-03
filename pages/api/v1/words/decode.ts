@@ -3,11 +3,11 @@ import { checkLength } from "utils/check-length";
 import { existsWord } from "utils/words";
 import { decode } from "js-base64";
 
-type Data = {
+export type Data = {
 	word: string;
 };
 
-type Error = {
+export type Error = {
 	error: string;
 	message?: string;
 };

@@ -2,11 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { checkLength } from "utils/check-length";
 import { existsWord } from "utils/words";
 
-type Data = {
+export type Data = {
 	exists: boolean;
 };
 
-type Error = {
+export type Error = {
 	error: string;
 	message?: string;
 };

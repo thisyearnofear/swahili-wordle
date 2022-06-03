@@ -3,12 +3,12 @@ import { checkLength } from "utils/check-length";
 import { checkWord, existsWord, Word } from "utils/words";
 import { decode } from "js-base64";
 
-type Data = {
+export type Data = {
 	exists: boolean;
 	keys: Word[];
 };
 
-type Error = {
+export type Error = {
 	error: string;
 	exists?: boolean;
 	message?: string;

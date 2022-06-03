@@ -10,6 +10,8 @@ export type Keys = {
 	5: string[];
 };
 
+export type Rows = Record<keyof Keys, boolean>;
+
 export type CurrentRow = keyof Keys | 6;
 
 export interface BoardState {
@@ -17,6 +19,7 @@ export interface BoardState {
 	keys: Keys;
 	backspace: boolean;
 	enter: boolean;
+	rows: Rows;
 }
 
 const initialState: BoardState = {
@@ -31,6 +34,7 @@ const initialState: BoardState = {
 	},
 	backspace: false,
 	enter: false,
+	rows: { 0: false, 1: false, 2: false, 3: false, 4: false, 5: false },
 };
 
 export const boardSlice = createSlice({
@@ -49,14 +53,18 @@ export const boardSlice = createSlice({
 		setEnter: (state, action: PayloadAction<boolean>) => {
 			state.enter = action.payload;
 		},
+		setRows: (state, action: PayloadAction<Partial<Rows>>) => {
+			state.rows = { ...state.rows, ...action.payload };
+		},
 	},
 });
 
-export const { setCurrentRow, setCurrentKeys, setBackspace, setEnter } = boardSlice.actions;
+export const { setCurrentRow, setCurrentKeys, setBackspace, setEnter, setRows } = boardSlice.actions;
 
 export const selectCurrentRow = (state: RootState) => state.board.currentRow;
 export const selectCurrentKeys = (state: RootState) => state.board.keys;
 export const selectBackspace = (state: RootState) => state.board.backspace;
 export const selectEnter = (state: RootState) => state.board.enter;
+export const selectRows = (state: RootState) => state.board.rows;
 
 export default boardSlice.reducer;
