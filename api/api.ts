@@ -16,26 +16,26 @@ class Api {
 			return e.data;
 		}
 	}
-	async getRandomWord(length = 5) {
-		return await this.apiCall<RandomData>(() => this.api.get(`/random?length=${length}`));
+	getRandomWord(length = 5) {
+		return this.apiCall<RandomData>(() => this.api.get(`/random?length=${length}`));
 	}
-	async existsWord(word: string) {
-		return await this.apiCall<ExistsData>(() => this.api.get(`/exists?word=${word}`));
+	existsWord(word: string) {
+		return this.apiCall<ExistsData>(() => this.api.get(`/exists?word=${word}`));
 	}
-	async checkWord(word: string, check: string) {
-		return await this.apiCall<CheckData>(() => this.api.get(`/check?word=${word}&check=${check}`));
+	checkWord(word: string, check: string) {
+		return this.apiCall<CheckData>(() => this.api.get(`/check?word=${word}&check=${check}`));
 	}
-	async decodeWord(word: string) {
-		return await this.apiCall<DecodeData>(() => this.api.get(`/decode?word=${word}`));
+	decodeWord(word: string) {
+		return this.apiCall<DecodeData>(() => this.api.get(`/decode?word=${word}`));
 	}
 }
 
 const api = new Api(process.env.NEXT_PUBLIC_API_URL);
 
-export const getRandomWord = async (length: number = 5) => await api.getRandomWord(length);
+export const getRandomWord = api.getRandomWord.bind(api);
 
-export const checkWord = async (word: string, check: string) => await api.checkWord(word, check);
+export const checkWord = api.checkWord(word, check).bind(api);
 
-export const existsWord = (word: string) => api.existsWord(word);
+export const existsWord = api.existsWord(word).bind(api);
 
-export const decodeWord = (word: string) => api.decodeWord(word);
+export const decodeWord = api.decodeWord(word).bind(api);
