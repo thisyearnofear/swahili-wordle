@@ -9,22 +9,17 @@ export type Word = {
 
 export type Class = "letter-correct" | "letter-elsewhere" | "letter-absent";
 
-function getWords(word: number): string[] {
-	return words[word as keyof typeof words];
-}
-
 function getLetters(letters: string[]): Letters {
 	const l: Letters = {};
-	return letters.forEach((lt) => (l[lt] = (l[lt] || 0) + 1)), l;
+	// prettier-ignore
+	return (letters.forEach((lt) => (l[lt] = (l[lt] || 0) + 1)), l);
 }
 
 export function randomWord(length: number): string {
-	const words = getWords(length);
 	return words[Math.floor(Math.random() * words.length)];
 }
 
 export function existsWord(word: string): boolean {
-	const words = getWords(word.length);
 	return words.includes(word.toLowerCase());
 }
 
