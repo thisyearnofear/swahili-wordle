@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Wordle Game</title>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/wordle/favicon.png" />
       </Head>
       <Provider store={store}>
         <Layout>

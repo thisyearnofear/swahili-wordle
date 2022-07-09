@@ -1,5 +1,5 @@
 import { getRandomWord } from "api/api";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 
 import Game from "components/Game/Game";
 import Header from "components/Header/Header";

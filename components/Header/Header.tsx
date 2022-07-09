@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo">
-        <Image width={227.67} height={22} src="/logo.svg" alt="" className=""></Image>
+        <Image width={227.67} height={22} src="/wordle/logo.svg" alt="" className="" />
       </div>
       <div className="cont flex">
         <a className="lang mini_modal_link" data-modal-id="#modal_languages" href="#main">
