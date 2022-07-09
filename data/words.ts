@@ -1,4 +1,4 @@
-import words from "data/words.json";
+import words from "./words.json";
 
 export type Letters = { [key: string]: number };
 
@@ -15,7 +15,7 @@ function getLetters(letters: string[]): Letters {
   return (letters.forEach((lt) => (l[lt] = (l[lt] || 0) + 1)), l);
 }
 
-export function randomWord(length: number): string {
+export function getRandomWord(): string {
   return words[Math.floor(Math.random() * words.length)];
 }
 

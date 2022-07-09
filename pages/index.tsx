@@ -1,4 +1,4 @@
-import { getRandomWord } from "api/api";
+import { getRandomWord } from "data";
 import { GetStaticProps } from "next";
 
 import Game from "components/Game/Game";
@@ -18,10 +18,9 @@ export default function App({ word }: AppProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const res = await getRandomWord();
   return {
     props: {
-      word: res.word ?? null,
+      word: getRandomWord(),
     },
   };
 };

@@ -7,7 +7,6 @@ import { selectCurrentKeys, selectBackspace, selectEnter, selectRows } from "sto
 import GameRow from "./GameRow";
 import { useGame } from "hooks/useGame";
 import { selectWord } from "store/gameSlice";
-import Modal from "components/Modal/Modal";
 
 interface GameProps {
   initialWord: string;
@@ -32,7 +31,6 @@ const Game = ({ initialWord }: GameProps) => {
 
   useEffect(() => {
     if (initialWord) setWordToGuess(initialWord);
-    console.log(initialWord);
   }, [initialWord, setWordToGuess]);
 
   useWindowEvent("keydown", addNewKeyWithEvent);

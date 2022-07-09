@@ -1,4 +1,4 @@
-import { existsWord } from "api/api";
+import { existsWord } from "data";
 import { useCallback } from "react";
 import { setModalContent, setShowModal } from "store/appSlice";
 import {
@@ -45,11 +45,11 @@ export function useGame(a: boolean = false) {
 
   const passToNextRow = useCallback(async () => {
     if (currentRow !== 6 && keys[currentRow].length >= 5) {
-      const { exists } = await existsWord(keys[currentRow].join(""));
+      const exists = existsWord(keys[currentRow].join(""));
       if (exists) {
         dispatch(setCurrentRow((currentRow + 1) as keyof typeof keys));
         dispatch(setRows({ [currentRow]: true }));
-      } else console.log("Does not exist");
+      }
     } else activeModal("Una palabra demasiado corta");
     if (enter) dispatch(setEnter(false));
   }, [enter, currentRow, keys, dispatch, activeModal]);

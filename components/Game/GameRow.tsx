@@ -1,4 +1,4 @@
-import { checkWord } from "api/api";
+import { checkWord } from "data";
 import { useGame } from "hooks/useGame";
 import { useEffect, useRef } from "react";
 import { setDidPlayerWin, setFinished } from "store/gameSlice";
@@ -48,6 +48,7 @@ export default function GameRow({
       if (!shouldCheck) return;
       const letters = [rowLetter1, rowLetter2, rowLetter3, rowLetter4, rowLetter5];
       const check = await checkWord(wordToGuess, keys.join(""));
+      if (!check.exists) return;
       if (check.keys.every((k) => k.class === "letter-correct")) {
         dispatch(setFinished(true));
         dispatch(setDidPlayerWin(true));
