@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	reactStrictMode: true,
+  reactStrictMode: true,
+  basePath: "/wordle",
+  assetPrefix: "/wordle",
 };
 
 module.exports = nextConfig;
