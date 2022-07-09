@@ -1,5 +1,5 @@
 import { getRandomWord } from "api/api";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 import Game from "components/Game/Game";
 import Header from "components/Header/Header";
@@ -17,7 +17,7 @@ export default function App({ word }: AppProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const res = await getRandomWord();
   return {
     props: {

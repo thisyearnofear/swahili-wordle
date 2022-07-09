@@ -4,11 +4,11 @@ import boardReducer from "./boardSlice";
 import gameReducer from "./gameSlice";
 
 export const store = configureStore({
-	reducer: {
-		app: appReducer,
-		board: boardReducer,
-		game: gameReducer,
-	},
+  reducer: {
+    app: appReducer,
+    board: boardReducer,
+    game: gameReducer,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;

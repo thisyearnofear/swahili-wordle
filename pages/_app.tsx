@@ -7,19 +7,19 @@ import Layout from "components/Layout/Layout";
 import { store } from "store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<>
-			<Head>
-				<title>Wordle Game</title>
-				<link rel="icon" href="/favicon.png" />
-			</Head>
-			<Provider store={store}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</Provider>
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <title>Wordle Game</title>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </>
+  );
 }
 
 export default MyApp;
