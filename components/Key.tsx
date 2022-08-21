@@ -1,0 +1,40 @@
+import { useGame } from "hooks/use-game";
+
+export interface Key {
+  key: string;
+  className: string;
+  label: string;
+  icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+}
+
+export interface KeyRowProps {
+  keys: Array<string | Key>;
+}
+
+export default function KeyRow({ keys, className = "", ...props }: KeyRowProps & React.HTMLProps<HTMLDivElement>) {
+  const { addNewKey, deleteLastLetter, passToNextRow } = useGame();
+
+  return (
+    <div className={`Game-keyboard-row ${className}`} {...props}>
+      {keys.map((item) => {
+        const isString = typeof item === "string";
+
+        return (
+          <div
+            key={isString ? item : item.key}
+            tabIndex={-1}
+            className={`Game-keyboard-button ${isString ? "" : item.className}`}
+            onClick={() => {
+              const key = (isString ? item : item.key).toLowerCase();
+              if (key === "enter") return passToNextRow();
+              if (key === "backspace") return deleteLastLetter();
+              addNewKey(key);
+            }}
+          >
+            {isString ? item : item.icon ? <item.icon width="22" height="22" /> : item.label}
+          </div>
+        );
+      })}
+    </div>
+  );
+}

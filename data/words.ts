@@ -1,11 +1,11 @@
 import words from "./words.json";
 
-export type Letters = { [key: string]: number };
+export type Letters = Record<string, number>;
 
-export type Word = {
+export interface Word {
   key: string;
   class: Class;
-};
+}
 
 export type Class = "letter-correct" | "letter-elsewhere" | "letter-absent";
 

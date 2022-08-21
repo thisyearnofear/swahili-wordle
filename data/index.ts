@@ -12,9 +12,9 @@ export const checkWord = (word: string, check: string): { exists: false } | { ex
   return { exists: true, keys };
 };
 
-export const decodeWord = (word: string): { exists: false } | { exists: true; word: string } => {
+export const decodeWord = (word: string) => {
   const w = decode(word);
-  if (!existsWord(w.toLowerCase())) return { exists: false };
+  if (!existsWord(w.toLowerCase())) return { exists: false, word: "" };
   return { exists: true, word: w };
 };
 

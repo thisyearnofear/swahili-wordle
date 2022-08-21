@@ -2,31 +2,33 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 export interface AppState {
-  showModal: boolean;
-  modalContent: any;
+  modal: {
+    isOpen: boolean;
+    content: string;
+    showButton: boolean;
+  };
 }
 
 const initialState: AppState = {
-  showModal: false,
-  modalContent: null,
+  modal: {
+    isOpen: false,
+    content: "",
+    showButton: false,
+  },
 };
 
 export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setShowModal: (state, action: PayloadAction<boolean>) => {
-      state.showModal = action.payload;
-    },
-    setModalContent: (state, action: PayloadAction<any>) => {
-      state.modalContent = action.payload;
+    setModal: (state, action: PayloadAction<Partial<AppState["modal"]>>) => {
+      state.modal = { ...state.modal, ...action.payload };
     },
   },
 });
 
-export const { setShowModal, setModalContent } = appSlice.actions;
+export const { setModal } = appSlice.actions;
 
-export const selectIsModalShown = (state: RootState) => state.app.showModal;
-export const selectModalContent = (state: RootState) => state.app.modalContent;
+export const selectModal = (state: RootState) => state.app.modal;
 
 export default appSlice.reducer;

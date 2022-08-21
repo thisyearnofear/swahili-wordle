@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { PlusCircleIcon, ChartBarIcon, CogIcon, SparklesIcon } from "@heroicons/react/solid";
 
@@ -5,32 +6,30 @@ const Header = () => {
   return (
     <header>
       <div className="logo">
-        <Image width={227.67} height={22} src="/wordle/logo.svg" alt="" className="" />
+        <Link href="/">
+          <a>
+            <Image width={227.67} height={22} src="/wordle/logo.svg" alt="Wordle Game" />
+          </a>
+        </Link>
       </div>
       <div className="cont flex">
-        <a className="lang mini_modal_link" data-modal-id="#modal_languages" href="#main">
-          EN
-        </a>
+        <a className="lang">EN</a>
         <button type="button" className="generator" style={{ display: "block" }}>
           <PlusCircleIcon width="20" height="20" />
         </button>
-        {/* <button type="button" className="give_up" style={{ display: "block" }}>
-					Give up
-				</button> */}
         <div className="buttons flex">
-          <button type="button" className="button mini_modal_link" data-modal-id="#modal_stats">
+          <button type="button" className="button">
             <ChartBarIcon width="20" height="20" />
           </button>
-          <button type="button" className="button mini_modal_link" data-modal-id="#modal_settings">
+          <button type="button" className="button">
             <CogIcon width="22" height="22" />
           </button>
           <button
             type="button"
-            className="button mini_modal_link"
-            data-modal-id="#modal_info"
+            className="button"
             onClick={() => {
-              document.querySelector("html")?.classList?.toggle?.("dark");
-              document.querySelector("body")?.classList?.toggle?.("dark-theme");
+              document.documentElement.classList.toggle("dark");
+              document.body.classList.toggle("dark-theme");
             }}
           >
             <SparklesIcon width="22" height="22" />

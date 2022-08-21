@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export interface EventHandler<K extends keyof WindowEventMap> {
-  (ev: WindowEventMap[K]): any;
-}
+export type EventHandler<K extends keyof WindowEventMap> = (ev: WindowEventMap[K]) => any;
 
 export function useWindowEvent<K extends keyof WindowEventMap>(eventName: K, handler: EventHandler<K>): void {
   const savedHandler = useRef<EventHandler<K>>();
@@ -13,7 +11,7 @@ export function useWindowEvent<K extends keyof WindowEventMap>(eventName: K, han
   }, [handler]);
 
   useEffect(() => {
-    const isSupported = element && element.addEventListener;
+    const isSupported = element?.addEventListener;
     if (!isSupported) return;
 
     function eventListener(event: WindowEventMap[K]) {

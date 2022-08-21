@@ -3,8 +3,8 @@ import "styles/wordle.min.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
-import Layout from "components/Layout/Layout";
 import { store } from "store/store";
+import Header from "components/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,9 +14,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/wordle/favicon.png" />
       </Head>
       <Provider store={store}>
-        <Layout>
+        {(Component as any).noLayout ? (
           <Component {...pageProps} />
-        </Layout>
+        ) : (
+          <div className="App-container">
+            <div className="Game" style={{ display: "block" }}>
+              <Header />
+              <Component {...pageProps} />
+            </div>
+          </div>
+        )}
       </Provider>
     </>
   );
