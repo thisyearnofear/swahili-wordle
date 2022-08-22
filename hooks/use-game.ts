@@ -1,8 +1,7 @@
-import { existsWord } from "data";
+import { existsWord } from "utils/data";
 import { useCallback } from "react";
 import { setModal } from "store/appSlice";
 import { setBackspace, setCurrentKeys as setKeys, setCurrentRow, setEnter } from "store/boardSlice";
-import { setWord } from "store/gameSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 
 export function useGame() {
@@ -56,36 +55,11 @@ export function useGame() {
     [currentRow, isFinished, keys, dispatch]
   );
 
-  const setWordToGuess = useCallback((word: string) => dispatch(setWord(word)), [dispatch]);
-
-  const animateKey = useCallback(
-    ({ element, className, time }: { element: HTMLDivElement; className: string; time: number }) => {
-      element.classList.add(className);
-      element.setAttribute("data-animation", "flip-in");
-      setTimeout(() => element.setAttribute("data-animation", "flip-out"), time / 2);
-    },
-    []
-  );
-
-  const resetGame = useCallback(() => {
-    const remover = (key: Element) => {
-      key.setAttribute("data-animation", "none");
-      key.classList.remove("letter-correct", "letter-elsewhere", "letter-absent", "selected");
-    };
-    const keys = document.querySelectorAll(".Game-keyboard-button");
-    const letters = document.querySelectorAll(".Row-letter");
-    keys.forEach(remover);
-    letters.forEach(remover);
-  }, []);
-
   return {
     deleteLastLetter,
     passToNextRow,
     addNewKey,
     addNewKeyWithEvent,
-    setWordToGuess,
-    animateKey,
-    resetGame,
     activeModal,
   };
 }

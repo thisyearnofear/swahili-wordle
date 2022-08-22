@@ -7,15 +7,15 @@ export interface Key {
   icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
-export interface KeyRowProps {
+export interface KeyRowProps extends React.HTMLProps<HTMLDivElement> {
   keys: Array<string | Key>;
 }
 
-export default function KeyRow({ keys, className = "", ...props }: KeyRowProps & React.HTMLProps<HTMLDivElement>) {
+export default function KeyboardRow({ keys }: KeyRowProps) {
   const { addNewKey, deleteLastLetter, passToNextRow } = useGame();
 
   return (
-    <div className={`Game-keyboard-row ${className}`} {...props}>
+    <div className="Game-keyboard-row">
       {keys.map((item) => {
         const isString = typeof item === "string";
 
@@ -30,6 +30,7 @@ export default function KeyRow({ keys, className = "", ...props }: KeyRowProps &
               if (key === "backspace") return deleteLastLetter();
               addNewKey(key);
             }}
+            data-key={isString ? item : item.key}
           >
             {isString ? item : item.icon ? <item.icon width="22" height="22" /> : item.label}
           </div>

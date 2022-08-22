@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getRandomWord } from "data";
+import { getRandomWord } from "utils/data";
 
 export type GameIs = "playing" | "won" | "lost";
 

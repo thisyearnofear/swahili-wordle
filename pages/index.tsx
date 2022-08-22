@@ -3,18 +3,19 @@ import { keyboard } from "utils/keyboard";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useWindowEvent } from "hooks/use-window-event";
 import { useGame } from "hooks/use-game";
-import GameRow from "components/Row";
-import KeyRow from "components/Key";
+import LetterRow from "components/Letter";
+import KeyboardRow from "components/Key";
 import { XIcon } from "@heroicons/react/solid";
-import { decodeWord } from "data";
+import { decodeWord } from "utils/data";
 import { restartBoard } from "store/boardSlice";
 import { restartGame } from "store/gameSlice";
+import { resetGame } from "utils/reset-game";
 
 const Game = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
-  const { deleteLastLetter, passToNextRow, addNewKeyWithEvent, resetGame, activeModal } = useGame();
+  const { deleteLastLetter, passToNextRow, addNewKeyWithEvent, activeModal } = useGame();
 
   const { backspace, enter, keys, gameIs, modal, word } = useAppSelector(
     ({ app: { modal }, board: { backspace, enter, keys }, game: { gameIs, word } }) => {
@@ -37,11 +38,11 @@ const Game = () => {
   useEffect(() => activeModal("Guess the first word!", 1500), [activeModal]);
 
   return (
-    <div className="game-wrapper">
-      <div className="game_rows">
+    <div className="Game">
+      <div className="Game-Rows">
         {[...Array(6)].map((_, i) => {
           const key = i as keyof typeof keys;
-          return <GameRow rowId={i} keys={keys[key]} key={i} />;
+          return <LetterRow rowId={i} keys={keys[key]} key={i} />;
         })}
       </div>
       {gameIs !== "playing" && (
@@ -51,7 +52,7 @@ const Game = () => {
       )}
       <div className="Game-keyboard">
         {keyboard.map((keys, i) => (
-          <KeyRow key={i} keys={keys} />
+          <KeyboardRow key={i} keys={keys} />
         ))}
       </div>
       {modal.isOpen && gameIs === "playing" && (
@@ -67,14 +68,14 @@ const Game = () => {
           <div className="cont">
             <div className="desc">The answer was:</div>
             <div className="word">
-              <span>{gameIs !== "playing" && wordToGuess.word}</span>
+              <span>{gameIs !== "playing" && wordToGuess}</span>
             </div>
             {gameIs !== "playing" && (
               <a
                 className="definition"
                 target="_blank"
                 rel="noreferrer"
-                href={`https://wordlegame.org/dictionary?q=${wordToGuess.word}+definition`}
+                href={`https://wordlegame.org/dictionary?q=${wordToGuess}+definition`}
               >
                 What does this word mean?
               </a>

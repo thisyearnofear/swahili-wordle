@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PlusCircleIcon, ChartBarIcon, CogIcon, SparklesIcon } from "@heroicons/react/solid";
 
-const Header = () => {
+const Header = ({ toggleColorTheme }: { toggleColorTheme: () => void }) => {
   return (
     <header>
       <div className="logo">
@@ -24,14 +24,7 @@ const Header = () => {
           <button type="button" className="button">
             <CogIcon width="22" height="22" />
           </button>
-          <button
-            type="button"
-            className="button"
-            onClick={() => {
-              document.documentElement.classList.toggle("dark");
-              document.body.classList.toggle("dark-theme");
-            }}
-          >
+          <button type="button" className="button" onClick={() => toggleColorTheme()}>
             <SparklesIcon width="22" height="22" />
           </button>
         </div>

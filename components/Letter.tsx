@@ -1,17 +1,16 @@
-import { checkWord } from "data";
-import { useGame } from "hooks/use-game";
+import { checkWord } from "utils/data";
 import { useEffect, useMemo, useRef } from "react";
 import { setGameIs } from "store/gameSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import { animateKey } from "utils/animate-key";
 
-export interface GameRowProps extends React.HTMLProps<HTMLDivElement> {
+export interface LetterRowProps extends React.HTMLProps<HTMLDivElement> {
   rowId: number;
   keys: string[];
 }
 
-export default function GameRow({ rowId, keys, className = "", ...props }: GameRowProps) {
+export default function LetterRow({ rowId, keys, className = "", ...props }: LetterRowProps) {
   const dispatch = useAppDispatch();
-  const { animateKey } = useGame();
   const { word, currentRow } = useAppSelector(({ game: { word }, board: { currentRow } }) => ({ word, currentRow }));
   const shouldCheck = rowId === currentRow - 1;
 
@@ -47,19 +46,17 @@ export default function GameRow({ rowId, keys, className = "", ...props }: GameR
       setTimeout(() => animateKey({ element, className: check.keys[i].class, time }), time * i);
     });
     setTimeout(() => {
-      const keyboardKeys = document.querySelectorAll<HTMLDivElement>(".Game-keyboard-button");
-      keyboardKeys.forEach((key) => {
-        const ketAttr = check.keys.findIndex((k) => k.key.toLowerCase() === key.textContent?.toLowerCase());
-        if (ketAttr === -1) return;
-        const k = check.keys.splice(ketAttr, 1)[0];
-        if (key.classList.contains("letter-correct")) return;
-        if (key.classList.contains(k.class)) return;
-        animateKey({ element: key, className: k.class, time });
+      check.keys.forEach((item) => {
+        const keyboardRow = document.querySelector(`.Game-keyboard-button[data-key="${item.key.toLowerCase()}"]`);
+        if (!keyboardRow) return;
+        if (keyboardRow.classList.contains("letter-correct")) return;
+        if (keyboardRow.classList.contains(item.class)) return;
+        animateKey({ element: keyboardRow, className: item.class, time });
       });
       if (didPlayerWin) dispatch(setGameIs("won"));
       else if (rowId === 5) dispatch(setGameIs("lost"));
     }, time * letters.length + 1);
-  }, [letters, shouldCheck, keys, word, animateKey, dispatch, rowId]);
+  }, [letters, shouldCheck, keys, word, dispatch, rowId]);
 
   return (
     <div className={`Row ${className}`} {...props}>
