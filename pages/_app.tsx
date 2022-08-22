@@ -1,23 +1,27 @@
 import "styles/global.min.css";
-import type { AppProps, AppContext } from "next/app";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import { store } from "store/store";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import { getCookie, setCookie } from "cookies-next";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const PREFERRED_COLOR_THEME_KEY = "preferred-color-theme";
 
-function MyApp({ Component, pageProps, colorTheme }: AppProps & { colorTheme: "light" | "dark" }) {
-  const [theme, setTheme] = useState(colorTheme);
+function App({ Component, pageProps }: AppProps) {
+  const [theme, setTheme] = useState<"dark" | "light">("light");
 
   const toggleColorTheme = useCallback(() => {
     const newTheme = theme === "dark" ? "light" : "dark";
-    setCookie(PREFERRED_COLOR_THEME_KEY, newTheme);
+    localStorage.setItem(PREFERRED_COLOR_THEME_KEY, newTheme);
     setTheme(newTheme);
   }, [theme]);
+
+  useEffect(() => {
+    const theme = localStorage.getItem(PREFERRED_COLOR_THEME_KEY);
+    if (theme === "dark") setTheme("dark");
+  }, []);
 
   return (
     <>
@@ -44,9 +48,4 @@ function MyApp({ Component, pageProps, colorTheme }: AppProps & { colorTheme: "l
   );
 }
 
-export default MyApp;
-
-MyApp.getInitialProps = ({ ctx }: AppContext) => {
-  const colorTheme = getCookie(PREFERRED_COLOR_THEME_KEY, ctx) ?? "light";
-  return { colorTheme };
-};
+export default App;
