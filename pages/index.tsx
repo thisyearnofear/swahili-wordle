@@ -5,7 +5,7 @@ import { useWindowEvent } from "hooks/use-window-event";
 import { useGame } from "hooks/use-game";
 import LetterRow from "components/Letter";
 import KeyboardRow from "components/Key";
-import { XIcon } from "@heroicons/react/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { decodeWord } from "utils/data";
 import { restartBoard } from "store/boardSlice";
 import { restartGame } from "store/gameSlice";
@@ -103,7 +103,7 @@ const Game = () => {
             modalRef.current.classList.remove("active");
           }}
         >
-          <XIcon />
+          <XMarkIcon />
         </button>
       </div>
     </div>

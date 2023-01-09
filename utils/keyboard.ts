@@ -1,4 +1,4 @@
-import { BackspaceIcon } from "@heroicons/react/solid";
+import { BackspaceIcon } from "@heroicons/react/24/solid";
 import { Key } from "components/Key";
 
 const className = "Game-keyboard-button-wide";
