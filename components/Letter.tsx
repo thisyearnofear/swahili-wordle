@@ -9,7 +9,7 @@ export interface LetterRowProps extends React.HTMLProps<HTMLDivElement> {
   keys: string[];
 }
 
-export default function LetterRow({ rowId, keys, className = "", ...props }: LetterRowProps) {
+export function LetterRow({ rowId, keys, className = "", ...props }: LetterRowProps) {
   const dispatch = useAppDispatch();
   const { word, currentRow } = useAppSelector(({ game: { word }, board: { currentRow } }) => ({ word, currentRow }));
   const shouldCheck = rowId === currentRow - 1;

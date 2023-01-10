@@ -11,7 +11,7 @@ export interface KeyRowProps extends React.HTMLProps<HTMLDivElement> {
   keys: Array<string | Key>;
 }
 
-export default function KeyboardRow({ keys }: KeyRowProps) {
+export function KeyboardRow({ keys }: KeyRowProps) {
   const { addNewKey, deleteLastLetter, passToNextRow } = useGame();
 
   return (

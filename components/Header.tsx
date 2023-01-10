@@ -1,15 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PlusCircleIcon, ChartBarIcon, CogIcon, SparklesIcon } from "@heroicons/react/24/solid";
+import { useCallback, useRef } from "react";
+import { setCookie } from "cookies-next";
 
-const Header = ({ toggleColorTheme }: { toggleColorTheme: () => void }) => {
+export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
+  const theme = useRef<"dark" | "light">(colorScheme);
+
+  const toggleColorTheme = useCallback(() => {
+    const newTheme = theme.current === "dark" ? "light" : "dark";
+    theme.current = newTheme;
+    setCookie("preferred-color-theme", newTheme);
+    document.documentElement.classList.toggle("dark");
+  }, []);
+
   return (
     <header>
       <div className="logo">
         <Link href="/">
-          <a>
-            <Image width={227.67} height={22} src="/wordle/logo.svg" alt="Wordle Game" />
-          </a>
+          <Image width={227.67} height={22} src="/wordle/logo.svg" alt="Wordle Game" priority />
         </Link>
       </div>
       <div className="cont flex">
@@ -31,6 +40,4 @@ const Header = ({ toggleColorTheme }: { toggleColorTheme: () => void }) => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}
