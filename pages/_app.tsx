@@ -1,51 +1,30 @@
 import "styles/global.min.css";
-import type { AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
+import { getCookie } from "cookies-next";
 import { store } from "store/store";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import { useCallback, useEffect, useState } from "react";
+import { Footer } from "components/Footer";
 
-const PREFERRED_COLOR_THEME_KEY = "preferred-color-theme";
-
-function App({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState<"dark" | "light">("light");
-
-  const toggleColorTheme = useCallback(() => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    localStorage.setItem(PREFERRED_COLOR_THEME_KEY, newTheme);
-    setTheme(newTheme);
-  }, [theme]);
-
-  useEffect(() => {
-    const theme = localStorage.getItem(PREFERRED_COLOR_THEME_KEY);
-    if (theme === "dark") setTheme("dark");
-  }, []);
-
+export default function App({ Component, pageProps, colorScheme }: AppProps & { colorScheme: "light" | "dark" }) {
   return (
     <>
       <Head>
         <title>Wordle Game</title>
         <link rel="icon" href="/wordle/favicon.png" />
       </Head>
-      <div className={`App ${theme}`}>
-        <Provider store={store}>
-          {(Component as any).noLayout ? (
-            <Component {...pageProps} />
-          ) : (
-            <div className="App-container">
-              <div className="Game">
-                <Header toggleColorTheme={toggleColorTheme} />
-                <Component {...pageProps} />
-              </div>
-            </div>
-          )}
+      <Provider store={store}>
+        <div className="App">
+          <Component {...pageProps} colorScheme={colorScheme} />
           <Footer />
-        </Provider>
-      </div>
+        </div>
+      </Provider>
     </>
   );
 }
 
-export default App;
+App.getInitialProps = ({ ctx }: AppContext) => {
+  return {
+    colorScheme: getCookie("preferred-color-theme", ctx),
+  };
+};
