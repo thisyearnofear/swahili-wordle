@@ -5,11 +5,13 @@ export type GameIs = "playing" | "won" | "lost";
 
 export interface GameState {
   word: string;
+  words: string[];
   gameIs: GameIs;
 }
 
 const initialState: GameState = {
-  word: getRandomWord(),
+  word: "",
+  words: [],
   gameIs: "playing",
 };
 
@@ -24,12 +26,15 @@ export const gameSlice = createSlice({
       state.gameIs = action.payload;
     },
     restartGame: (state) => {
-      state.word = getRandomWord();
+      state.word = getRandomWord(state.words);
       state.gameIs = "playing";
+    },
+    setWords: (state, action: PayloadAction<string[]>) => {
+      state.words = action.payload;
     },
   },
 });
 
-export const { setWord, setGameIs, restartGame } = gameSlice.actions;
+export const { setWord, setGameIs, restartGame, setWords } = gameSlice.actions;
 
 export default gameSlice.reducer;

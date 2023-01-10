@@ -7,9 +7,9 @@ import { useAppDispatch, useAppSelector } from "store/hooks";
 export function useGame() {
   const dispatch = useAppDispatch();
 
-  const { isFinished, backspace, enter, currentRow, keys } = useAppSelector(
-    ({ board: { backspace, currentRow, keys, enter }, game: { gameIs } }) => {
-      return { backspace, currentRow, keys, enter, isFinished: gameIs !== "playing" };
+  const { isFinished, backspace, enter, currentRow, keys, words } = useAppSelector(
+    ({ board: { backspace, currentRow, keys, enter }, game: { gameIs, words } }) => {
+      return { backspace, currentRow, keys, enter, isFinished: gameIs !== "playing", words };
     }
   );
 
@@ -30,10 +30,10 @@ export function useGame() {
     if (enter) dispatch(setEnter(false));
     if (currentRow === 6) return;
     if (keys[currentRow].length < 5) return activeModal("Too short");
-    const exists = existsWord(keys[currentRow].join(""));
+    const exists = existsWord(keys[currentRow].join(""), words);
     if (!exists) return activeModal("Word not found");
     dispatch(setCurrentRow((currentRow + 1) as keyof typeof keys));
-  }, [enter, currentRow, keys, dispatch, activeModal]);
+  }, [enter, currentRow, keys, dispatch, activeModal, words]);
 
   const addNewKey = useCallback(
     (key: string) => {
