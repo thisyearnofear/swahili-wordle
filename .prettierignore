@@ -47,7 +47,7 @@ build
 next-env.d.ts
 
 # words data
-data/words.json
+public
 
 # css minified
 *.min.css
