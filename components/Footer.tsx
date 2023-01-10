@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container">
         <div className="footer__top">
           <Link href="/" className="footer__logo">
-            <Image width={227.67} height={22} src="/wordle/logo.svg" alt="Wordle Game - Play Unlimited" priority />
+            <Image width={227.67} height={22} src="/logo.svg" alt="Wordle Game - Play Unlimited" priority />
           </Link>
         </div>
         <div className="footer__bottom">

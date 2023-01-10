@@ -18,7 +18,7 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
     <header>
       <div className="logo">
         <Link href="/">
-          <Image width={227.67} height={22} src="/wordle/logo.svg" alt="Wordle Game" priority />
+          <Image width={227.67} height={22} src="/logo.svg" alt="Wordle Game" priority />
         </Link>
       </div>
       <div className="cont flex">
