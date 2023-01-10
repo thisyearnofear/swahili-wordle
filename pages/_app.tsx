@@ -1,4 +1,4 @@
-import "styles/global.min.css";
+import "styles/global.css";
 import type { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";

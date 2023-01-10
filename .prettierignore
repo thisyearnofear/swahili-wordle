@@ -48,6 +48,3 @@ next-env.d.ts
 
 # words data
 public
-
-# css minified
-*.min.css
