@@ -12,6 +12,10 @@ export default function App({ Component, pageProps, colorScheme }: AppProps & { 
       <Head>
         <title>Wordle Game</title>
         <link rel="icon" href="/favicon.png" />
+        <meta
+          name="description"
+          content="Play Wordle with unlimited words! Can you guess the hidden word in 6 tries?"
+        />
       </Head>
       <Provider store={store}>
         <div className="App">
