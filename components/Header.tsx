@@ -1,8 +1,12 @@
 import { PlusCircleIcon, CogIcon, SparklesIcon } from "@heroicons/react/24/solid";
 import { useCallback, useRef } from "react";
 import { setCookie } from "cookies-next";
+import { useAppDispatch } from "store/hooks";
+import { setSettingsActive } from "store/appSlice";
 
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
+  const dispatch = useAppDispatch();
+
   const theme = useRef<"dark" | "light">(colorScheme);
 
   const toggleColorTheme = useCallback(() => {
@@ -22,7 +26,12 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
           <PlusCircleIcon width="20" height="20" />
         </button>
         <div className="buttons flex">
-          <button type="button" className="button" aria-label="Settings">
+          <button
+            type="button"
+            className="button"
+            aria-label="Settings"
+            onClick={() => dispatch(setSettingsActive(true))}
+          >
             <CogIcon width="22" height="22" />
           </button>
           <button type="button" className="button" onClick={() => toggleColorTheme()} aria-label="Chage theme">

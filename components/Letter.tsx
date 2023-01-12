@@ -11,14 +11,14 @@ export interface LetterRowProps extends React.HTMLProps<HTMLDivElement> {
 
 export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
   const dispatch = useAppDispatch();
-  const { currentRow, word, words } = useAppSelector(letterSelector);
+  const { currentRow, word, words, numberOfLetters } = useAppSelector(letterSelector);
   const shouldCheck = rowId === currentRow - 1;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const letters = ref.current?.childNodes as NodeListOf<Element>;
     letters?.forEach((element, i) => {
-      const key = keys[i];
+      const key = keys?.[i];
       element.classList[key ? "add" : "remove"]("selected");
       element.setAttribute("data-animation", key ? "pop" : "none");
     });
@@ -59,9 +59,9 @@ export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
 
   return (
     <div className="Row" ref={ref} {...props}>
-      {[...Array(5)].map((_, i) => (
+      {[...Array(numberOfLetters)].map((_, i) => (
         <div key={i} className="Row-letter" data-animation="none">
-          {keys[i] ?? ""}
+          {keys?.[i] ?? ""}
         </div>
       ))}
     </div>

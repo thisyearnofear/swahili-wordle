@@ -8,6 +8,7 @@ import { Header } from "components/Header";
 import { getWords } from "utils/get-words";
 import { gameSelector, startGame } from "store/appSlice";
 import { resetGame } from "utils/reset-game";
+import { DEFAULT_NUMBER_OF_LETTERS } from "utils/numbers-of-letters";
 import { Settings } from "components/Settings";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
@@ -26,9 +27,16 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
   }, [enter, passToNextRow]);
 
   useEffect(() => {
+    const getNumberOfLetters = () => {
+      const numberOfLetters = Number(localStorage.getItem("numberOfLetters"));
+      return !isNaN(numberOfLetters) && numberOfLetters > 3 && numberOfLetters < 12
+        ? numberOfLetters
+        : DEFAULT_NUMBER_OF_LETTERS;
+    };
+
     const start = async () => {
       const words = await getWords();
-      dispatch(startGame(words));
+      dispatch(startGame({ words, numberOfLetters: getNumberOfLetters() }));
       resetGame();
       activeModal("Guess the first word!", 1500);
     };

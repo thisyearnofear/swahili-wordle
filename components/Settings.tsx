@@ -1,11 +1,11 @@
-import { setSettingsActive, settingsSelector } from "store/appSlice";
+import { setNumberOfLetter, setSettingsActive, settingsSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { NUMBERS_OF_LETTERS } from "utils/numbers-of-letters";
 import { Modal } from "./Game/Modal";
 
 export function Settings() {
   const dispatch = useAppDispatch();
-  const { isSettingsActive } = useAppSelector(settingsSelector);
+  const { isSettingsActive, numberOfLetters } = useAppSelector(settingsSelector);
 
   return (
     <Modal
@@ -25,11 +25,12 @@ export function Settings() {
                 onChange={(e) => {
                   const numberOfLetters = +e.target.value;
                   localStorage.setItem("numberOfLetters", numberOfLetters.toString());
+                  dispatch(setNumberOfLetter(numberOfLetters));
                   dispatch(setSettingsActive(false));
                 }}
                 autoComplete="off"
                 value={number}
-                defaultChecked={number === 5}
+                checked={number === numberOfLetters}
               />
               <span className="check_text">{number}</span>
             </label>
