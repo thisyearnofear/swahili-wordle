@@ -1,4 +1,4 @@
-import { encode, decode } from "js-base64";
+import { decode } from "js-base64";
 
 type Class = "letter-correct" | "letter-elsewhere" | "letter-absent";
 
@@ -13,14 +13,6 @@ function getLetters(letters: string[]): Letters {
   const ltrs: Letters = {};
   letters.forEach((ltr) => (ltrs[ltr] = (ltrs[ltr] || 0) + 1));
   return ltrs;
-}
-
-export function getRandomWord(words: string[]) {
-  return encode(words[Math.floor(Math.random() * words.length)]);
-}
-
-export function existsWord(word: string, words: string[]) {
-  return words.includes(word.toLowerCase());
 }
 
 function getKeys(word: string, check: string): Word[] {
@@ -51,19 +43,17 @@ function getKeys(word: string, check: string): Word[] {
 }
 
 export const checkWord = (
-  word: string,
+  encodedWord: string,
   check: string,
   words: string[]
 ): { exists: false } | { exists: true; keys: Word[] } => {
-  const _word = decode(word);
-  const isValidQueryWord = existsWord(_word.toLowerCase(), words);
-  const isValidQueryCheck = existsWord(check.toLowerCase(), words);
+  const word = decode(encodedWord);
+  const isValidQueryWord = words.includes(word.toLowerCase());
+  const isValidQueryCheck = words.includes(check.toLowerCase());
   if (!isValidQueryCheck || !isValidQueryWord) return { exists: false };
 
-  const keys = getKeys(_word.toUpperCase(), check.toUpperCase());
+  const keys = getKeys(word.toUpperCase(), check.toUpperCase());
   return { exists: true, keys };
 };
 
-export const decodeWord = (word: string) => {
-  return decode(word);
-};
+export const decodeWord = (word: string) => decode(word);

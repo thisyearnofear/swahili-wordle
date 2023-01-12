@@ -1,4 +1,4 @@
-import { decodeWord } from "utils/data";
+import { decodeWord } from "utils/check-word";
 import { resetGame } from "utils/reset-game";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { restartGame, stateSelector } from "store/appSlice";

@@ -1,4 +1,3 @@
-import { existsWord } from "utils/data";
 import { useCallback } from "react";
 import { setModal, setBackspace, setCurrentKeys, setCurrentRow, setEnter, gameHookSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
@@ -28,7 +27,7 @@ export function useGame() {
     if (enter) dispatch(setEnter(false));
     if (currentRow === MAX_ROW_NUMBER) return;
     if (keys[currentRow].length < numberOfLetters) return activeModal("Too short");
-    const exists = existsWord(keys[currentRow].join(""), words);
+    const exists = words.includes(keys[currentRow].join(""));
     if (!exists) return activeModal("Word not found");
     dispatch(setCurrentRow(currentRow + 1));
   }, [numberOfLetters, enter, currentRow, keys, dispatch, activeModal, words]);

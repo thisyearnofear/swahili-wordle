@@ -1,4 +1,4 @@
-import { checkWord } from "utils/data";
+import { checkWord } from "utils/check-word";
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { animateKey } from "utils/animate-key";
