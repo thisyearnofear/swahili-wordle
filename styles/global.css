@@ -19,7 +19,7 @@ html {
   --bg2: #fff;
   --bg3: #f2efe4;
   --bg4: #f2e4e7;
-  --bg5: #f3f1ea;
+  --bg5: #e5ecff;
   --color2: #8b887d;
   --color3: #a35868;
   --color4: #3d424b;
@@ -45,14 +45,12 @@ html {
   flex-direction: column;
 }
 body {
-  color: #000;
   font-family: Montserrat, "Open Sans", sans-serif;
   font-weight: 400;
   min-width: 100%;
   margin: 0;
   color: var(--color);
   font: 18px var(--font_family);
-  min-width: 100%;
   height: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -207,6 +205,13 @@ body {
     margin-bottom: 10px;
   }
 }
+@media (min-width: 479px) {
+  .modal_finish {
+    min-width: 350px;
+    max-width: unset !important;
+    width: max-content !important;
+  }
+}
 .Row,
 .Row-letter {
   display: flex;
@@ -217,10 +222,10 @@ body {
   border: 2px solid #dee1e9;
   font-size: 28px;
   font-weight: 700;
-  height: 64px;
+  height: 56px;
   margin: 3px;
   text-transform: uppercase;
-  width: 64px;
+  width: 56px;
   border-radius: 5px;
   color: #393e4c;
   background: #fbfcff;
@@ -269,7 +274,7 @@ body {
 .Game-keyboard-button {
   align-items: center;
   background-color: #dce1ed;
-  color: #5a6376 !important;
+  color: #414a5e !important;
   border: 2px solid transparent;
   border-radius: 4px;
   color: inherit;
@@ -322,7 +327,7 @@ body {
   -webkit-touch-callout: none;
 }
 .dark .Game-keyboard-button:active {
-  background: #9496ae;
+  background: #81859c;
 }
 .letter-correct {
   background-color: #79b851 !important;
@@ -354,8 +359,8 @@ body {
     margin: 0 5px;
   }
   .Row-letter {
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
     font-size: 22px;
   }
   .Game-keyboard {
@@ -377,45 +382,26 @@ body {
   }
 }
 @media (max-width: 479px) {
-  .Row-letter,
   header .buttons button + button,
   header button.generator {
-    width: 50px;
-    height: 50px;
+    margin-left: 7px !important;
+  }
+  .Row-letter {
+    width: 44px;
+    height: 44px;
     font-size: 22px;
   }
   .Game-keyboard-button {
     font-size: 14px;
   }
+  .number_checkbox .label_check {
+    font-size: 15px !important;
+  }
+  .number_checkbox input[type="radio"] + .check_text {
+    padding: 4px 10px !important;
+  }
 }
 @media (max-width: 375px) {
-  header .logo {
-    height: 20px !important;
-  }
-  header .buttons button.button {
-    width: 28px !important;
-    height: 28px !important;
-  }
-  header .buttons button.button svg {
-    width: 14px !important;
-    height: 14px !important;
-  }
-  header .lang .icon svg {
-    width: 14px;
-    height: 14px;
-  }
-  header .lang {
-    line-height: 30px !important;
-    font-size: 12px !important;
-    height: 28px !important;
-  }
-  header button.generator {
-    height: 28px !important;
-  }
-  header button.generator svg {
-    width: 22px !important;
-    height: 14px !important;
-  }
   .modal_finish .top {
     font-size: 16px !important;
   }
@@ -431,12 +417,15 @@ body {
     font-size: 12px;
     min-height: 42px;
   }
+  .number_checkbox input[type="radio"] + .check_text {
+    padding: 3px 7px !important;
+  }
 }
 @media (max-width: 320px) {
   .Row-letter {
     width: 40px;
     height: 40px;
-    font-size: 22px;
+    font-size: 20px;
   }
   .Game-keyboard-button {
     font-size: 12px;
@@ -455,13 +444,65 @@ body {
   align-content: flex-start;
   flex-wrap: wrap;
 }
+.number_checkbox .label_check {
+  color: var(--color5);
+  font-family: var(--font_family);
+  font-size: 16px;
+  line-height: 32px;
+  display: table-cell;
+  vertical-align: top;
+}
+.dark .number_checkbox .label_check {
+  color: var(--color);
+}
+.number_checkbox input[type="radio"] {
+  display: none;
+}
+.number_checkbox input[type="radio"] + .check_text {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 6px 14px;
+  border-radius: 5px;
+  background: #e9edf7;
+  transition: 0.2s;
+}
+.number_checkbox input[type="radio"] + .check_text:hover,
+.dark .number_checkbox input[type="radio"] + .check_text:hover {
+  color: #fff;
+  background-color: #6bba6b;
+}
+.dark .number_checkbox input[type="radio"] + .check_text {
+  color: #c0c3d6;
+  background: #40445c;
+}
+.number_checkbox input[type="radio"]:checked + .check_text,
+.dark .number_checkbox input[type="radio"]:checked + .check_text {
+  color: #fff;
+  font-weight: 700;
+  background-color: #6bba6b;
+}
+.number_checkbox input[type="radio"]:disabled + .check_text {
+  color: #96907a;
+  cursor: default;
+  background: #f2efe4;
+}
+.dark .number_checkbox input[type="radio"]:disabled + .check_text {
+  color: #777b90;
+  background: #232532;
+}
 header {
   position: relative;
 }
 header .cont {
-  height: 50px;
+  height: 45px;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-bottom: 10px;
   align-items: center;
   align-content: center;
   justify-content: space-between;
@@ -469,24 +510,10 @@ header .cont {
 .dark header .cont {
   background: #13141c;
 }
-header .logo {
-  width: 100%;
-  margin: 0 auto;
-  height: 22px;
-  text-align: center;
-  margin-top: 5px;
-}
-header .logo img {
-  width: auto;
-  transition: 0.2s;
-}
-header .logo img:hover {
-  opacity: 0.8;
-}
 header .lang {
+  color: #414a5e;
   text-decoration: none;
-  color: #69758e;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   height: 34px;
   padding: 0 8px;
@@ -498,10 +525,10 @@ header .lang {
   cursor: pointer;
 }
 header .lang .icon svg {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
   margin-right: 5px;
-  margin-bottom: -3px;
+  margin-bottom: -6px;
   border-radius: 6px;
 }
 header .lang:hover {
@@ -525,20 +552,20 @@ header .lang:active {
   background: #2a402f;
 }
 header button.generator {
-  color: #57ac57;
+  color: #414a5e;
   fill: currentcolor;
   height: 34px;
   padding: 3px;
   margin-left: 10px;
   border-radius: 7px;
-  background: #e6f3e6;
+  background: #ebedf3;
   transition: 0.2s;
   cursor: pointer;
-  border: none;
+  border: 0;
 }
 header button.generator:hover {
-  color: #369c36;
-  background: #d5edd5;
+  color: #57ac57;
+  background: #e6f3e6;
 }
 header button.generator svg {
   display: block;
@@ -546,16 +573,16 @@ header button.generator svg {
   max-width: 100%;
   max-height: 100%;
   width: 24px;
-  height: 18px;
+  height: 24px;
 }
 .dark header button.generator {
-  color: #7bd27b;
+  color: #dfe1f3;
   fill: currentcolor;
-  background: #2a402f;
+  background: #40445c;
 }
 .dark header button.generator:hover {
-  color: #99f199;
-  background: #38543f;
+  color: #7bd27b;
+  background: #2a402f;
 }
 header .buttons {
   margin-left: auto;
@@ -566,14 +593,14 @@ header .buttons {
 header .buttons button {
   font-family: var(--font_family);
   cursor: pointer;
-  border: none;
+  border: 0;
   border-radius: 7px;
 }
 header .buttons button + button {
   margin-left: 10px;
 }
 header .buttons button.button {
-  color: #69758e;
+  color: #414a5e;
   display: flex;
   width: 34px;
   height: 34px;
@@ -608,8 +635,16 @@ header .buttons button.button svg {
   display: block;
   max-width: 100%;
   max-height: 100%;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+}
+.numbers {
+  margin-bottom: 10px;
+  justify-content: center;
+  gap: 7px;
+}
+* + .numbers {
+  margin-top: 8px;
 }
 .modal_finish {
   color: var(--color);
@@ -633,10 +668,10 @@ header .buttons button.button svg {
   opacity: 0;
   border-radius: 8px;
   background: var(--bg2);
-  box-shadow: 0 0 0 500px rgb(255 255 255 / 50%), 0 0 40px rgb(0 0 0 / 40%);
+  box-shadow: 0 0 0 500px rgb(255 255 255/50%), 0 0 40px rgb(0 0 0/40%);
 }
 .dark .modal_finish {
-  box-shadow: 0 0 0 500px rgb(19 20 28 / 80%), 0 0 60px rgb(92 98 136 / 60%);
+  box-shadow: 0 0 0 500px rgb(19 20 28/80%), 0 0 60px rgb(92 98 136/60%);
   background: #26283a;
 }
 .modal_finish.active {
@@ -659,7 +694,7 @@ header .buttons button.button svg {
   align-content: center;
 }
 .modal_finish .top.lost {
-  color: #69634d;
+  color: #2e3239;
 }
 .dark .modal_finish .top.lost {
   color: #fff;
@@ -677,7 +712,7 @@ header .buttons button.button svg {
   width: 100%;
   height: 2px;
   margin: 12px 0;
-  border: none;
+  border: 0;
   background: #e8ebf3;
 }
 .modal_finish .desc {
@@ -732,7 +767,7 @@ header .buttons button.button svg {
   line-height: 24px;
   cursor: pointer;
   vertical-align: top;
-  border: none;
+  border: 0;
   border-radius: 5px;
   background: #57ac57;
   transition: 0.2s;
@@ -760,14 +795,14 @@ header .buttons button.button svg {
   margin-top: 8px;
 }
 .modal_finish .close {
-  color: #8b887d;
+  color: #818aa3;
   position: absolute;
   top: 8px;
   right: 8px;
   display: flex;
   height: 26px;
   cursor: pointer;
-  border: none;
+  border: 0;
   background: 0 0;
   justify-content: center;
   align-items: center;
@@ -821,6 +856,9 @@ header .buttons button.button svg {
   background: #edf0f7;
   text-align: center;
   width: max-content;
+  position: absolute;
+  left: 0;
+  right: 0;
   margin-top: 3px;
   margin-left: auto;
   margin-right: auto;
@@ -832,7 +870,7 @@ header .buttons button.button svg {
 .Game-keyboard-button[data-animation="pop"],
 .Row-letter[data-animation="pop"] {
   animation-name: PopIn;
-  animation-duration: 0.3s;
+  animation-duration: 300ms;
 }
 @keyframes PopIn {
   from {
