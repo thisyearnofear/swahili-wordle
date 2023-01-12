@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getRandomWord } from "utils/data";
 
-type Keys = Record<0 | 1 | 2 | 3 | 4 | 5, string[]>;
-
 interface AppState {
+  isSettingsActive: boolean;
   backspace: boolean;
-  currentRow: keyof Keys | 6;
+  currentRow: number;
   enter: boolean;
   gameIs: "playing" | "won" | "lost";
-  keys: Keys;
+  keys: Record<number, string[]>;
   modal: { content: string; isOpen: boolean; showButton: boolean };
   word: string;
   words: string[];
 }
 
 const initialState: AppState = {
+  isSettingsActive: false,
   backspace: false,
   currentRow: 0,
   enter: false,
@@ -31,23 +31,30 @@ const createSetState =
     state[property] = action.payload;
   };
 
+const getWords = (words: string[], length: number = 5) => {
+  return words.filter((word): word is string => typeof word === "string" && word.length === length);
+};
+
+const restartGameAction = (state: AppState, words?: string[]): AppState => {
+  const wordsWithNumberOfLetters = getWords(words ?? state.words);
+
+  return {
+    ...initialState,
+    words: words ?? state.words,
+    word: getRandomWord(wordsWithNumberOfLetters),
+    gameIs: "playing",
+  };
+};
+
 export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
     startGame: (state, action: PayloadAction<string[]>) => {
-      state.words = action.payload;
-      state.word = getRandomWord(action.payload);
+      return restartGameAction(state, action.payload);
     },
-    restartGame: (state) => {
-      return {
-        ...initialState,
-        words: state.words,
-        word: getRandomWord(state.words),
-        gameIs: "playing",
-      };
-    },
-    setCurrentKeys: (state, action: PayloadAction<Partial<Keys>>) => {
+    restartGame: (state) => restartGameAction(state),
+    setCurrentKeys: (state, action: PayloadAction<Record<number, string[]>>) => {
       state.keys = { ...state.keys, ...action.payload };
     },
     setModal: (state, action: PayloadAction<Partial<AppState["modal"]>>) => {
@@ -57,13 +64,27 @@ export const appSlice = createSlice({
     setCurrentRow: createSetState("currentRow"),
     setEnter: createSetState("enter"),
     setGameIs: createSetState("gameIs"),
+    setSettingsActive: createSetState("isSettingsActive"),
   },
 });
 
-export const { restartGame, setCurrentKeys, setModal, setBackspace, setCurrentRow, setEnter, setGameIs, startGame } =
-  appSlice.actions;
+export const {
+  restartGame,
+  setCurrentKeys,
+  setModal,
+  setBackspace,
+  setCurrentRow,
+  setEnter,
+  setGameIs,
+  startGame,
+  setSettingsActive,
+} = appSlice.actions;
 
-export const letterSelector = ({ currentRow, word, words }: AppState) => ({ currentRow, word, words });
+export const letterSelector = ({ currentRow, word, words }: AppState) => ({
+  currentRow,
+  word,
+  words,
+});
 
 export const panelSelector = ({ gameIs, keys, modal }: AppState) => ({ gameIs, keys, modal });
 
@@ -74,5 +95,9 @@ export const gameSelector = ({ backspace, enter }: AppState) => ({ backspace, en
 export const gameHookSelector = ({ backspace, currentRow, enter, gameIs, keys, words }: AppState) => {
   return { backspace, currentRow, enter, keys, isFinished: gameIs !== "playing", words };
 };
+
+export const settingsSelector = ({ isSettingsActive }: AppState) => ({
+  isSettingsActive,
+});
 
 export default appSlice.reducer;

@@ -8,6 +8,7 @@ import { Header } from "components/Header";
 import { getWords } from "utils/get-words";
 import { gameSelector, startGame } from "store/appSlice";
 import { resetGame } from "utils/reset-game";
+import { Settings } from "components/Settings";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
@@ -39,14 +40,17 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
   useWindowEvent("keydown", addNewKeyWithEvent);
 
   return (
-    <div className="App-container">
-      <div className="Game">
-        <Header colorScheme={colorScheme} />
+    <>
+      <div className="App-container">
         <div className="Game">
-          <GamePanel />
-          <GameState />
+          <Header colorScheme={colorScheme} />
+          <div className="Game">
+            <GamePanel />
+            <GameState />
+          </div>
         </div>
       </div>
-    </div>
+      <Settings />
+    </>
   );
 }
