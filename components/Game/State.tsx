@@ -2,15 +2,14 @@ import { useRef } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { decodeWord } from "utils/data";
 import { resetGame } from "utils/reset-game";
-import { restartBoard } from "store/boardSlice";
-import { restartGame } from "store/gameSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import { restartGame, stateSelector } from "store/appSlice";
 
 export function GameState() {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
-  const { gameIs, word } = useAppSelector((state) => ({ gameIs: state.game.gameIs, word: state.game.word }));
+  const { gameIs, word } = useAppSelector(stateSelector);
 
   const wordToGuess = decodeWord(word);
 
@@ -40,7 +39,6 @@ export function GameState() {
               type="button"
               onClick={() => {
                 dispatch(restartGame());
-                dispatch(restartBoard());
                 resetGame();
                 modalRef.current?.classList?.remove("active");
               }}

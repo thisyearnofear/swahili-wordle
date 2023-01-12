@@ -1,17 +1,12 @@
 import { existsWord } from "utils/data";
 import { useCallback } from "react";
-import { setModal } from "store/appSlice";
-import { setBackspace, setCurrentKeys as setKeys, setCurrentRow, setEnter } from "store/boardSlice";
+import { setModal, setBackspace, setCurrentKeys, setCurrentRow, setEnter, gameHookSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 
 export function useGame() {
   const dispatch = useAppDispatch();
 
-  const { isFinished, backspace, enter, currentRow, keys, words } = useAppSelector(
-    ({ board: { backspace, currentRow, keys, enter }, game: { gameIs, words } }) => {
-      return { backspace, currentRow, keys, enter, isFinished: gameIs !== "playing", words };
-    }
-  );
+  const { isFinished, backspace, enter, currentRow, keys, words } = useAppSelector(gameHookSelector);
 
   const activeModal = useCallback(
     (content: string, time = 400) => {
@@ -22,7 +17,8 @@ export function useGame() {
   );
 
   const deleteLastLetter = useCallback(() => {
-    if (currentRow !== 6 && keys[currentRow].length) dispatch(setKeys({ [currentRow]: keys[currentRow].slice(0, -1) }));
+    if (currentRow !== 6 && keys[currentRow].length)
+      dispatch(setCurrentKeys({ [currentRow]: keys[currentRow].slice(0, -1) }));
     if (backspace) dispatch(setBackspace(false));
   }, [backspace, currentRow, keys, dispatch]);
 
@@ -38,7 +34,7 @@ export function useGame() {
   const addNewKey = useCallback(
     (key: string) => {
       if (currentRow !== 6 && keys[currentRow].length !== 5)
-        dispatch(setKeys({ [currentRow]: [...keys[currentRow], key] }));
+        dispatch(setCurrentKeys({ [currentRow]: [...keys[currentRow], key] }));
     },
     [currentRow, keys, dispatch]
   );
@@ -50,7 +46,7 @@ export function useGame() {
       if (key === "backspace") return dispatch(setBackspace(true));
       if (key === "enter") return dispatch(setEnter(true));
       if (key.length !== 1 || !key.match(/[a-z]|ñ/gi) || keys[currentRow].length === 5) return;
-      dispatch(setKeys({ [currentRow]: [...keys[currentRow], key] }));
+      dispatch(setCurrentKeys({ [currentRow]: [...keys[currentRow], key] }));
     },
     [currentRow, isFinished, keys, dispatch]
   );

@@ -2,11 +2,10 @@ import { keyboard } from "utils/keyboard";
 import { KeyboardRow } from "components/Key";
 import { LetterRow } from "components/Letter";
 import { useAppSelector } from "store/hooks";
+import { panelSelector } from "store/appSlice";
 
 export function GamePanel() {
-  const { keys, gameIs, modal } = useAppSelector(({ app: { modal }, board: { keys }, game: { gameIs } }) => {
-    return { keys, gameIs, modal };
-  });
+  const { gameIs, keys, modal } = useAppSelector(panelSelector);
 
   return (
     <>

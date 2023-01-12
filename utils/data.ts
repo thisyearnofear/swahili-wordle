@@ -1,15 +1,15 @@
 import { encode, decode } from "js-base64";
 
-export type Class = "letter-correct" | "letter-elsewhere" | "letter-absent";
+type Class = "letter-correct" | "letter-elsewhere" | "letter-absent";
 
-export interface Word {
+interface Word {
   key: string;
   class: Class;
 }
 
-export type Letters = Record<string, number>;
+type Letters = Record<string, number>;
 
-function getLetters(letters: string[], words: string[]): Letters {
+function getLetters(letters: string[]): Letters {
   const ltrs: Letters = {};
   letters.forEach((ltr) => (ltrs[ltr] = (ltrs[ltr] || 0) + 1));
   return ltrs;
@@ -23,27 +23,24 @@ export function existsWord(word: string, words: string[]) {
   return words.includes(word.toLowerCase());
 }
 
-export function getKeys(word: string, letters: string[], words: string[]): Word[] {
-  const _word = word.toUpperCase();
-  const _letters = letters.map((str) => str.toUpperCase());
+function getKeys(word: string, check: string): Word[] {
+  const letters = check.toUpperCase().split("");
 
-  if (_word === _letters.join("")) return _letters.map((letter) => ({ key: letter, class: "letter-correct" }));
+  if (word === check) return letters.map((letter) => ({ key: letter, class: "letter-correct" }));
 
-  const lettersCounter = getLetters(_word.split(""), words);
+  const lettersCounter = getLetters(word.split(""));
   const result: Word[] = [];
 
-  _letters.forEach((letter, i) => {
-    if (letter === _word[i]) {
+  letters.forEach((letter, i) => {
+    if (letter === word[i]) {
       result[i] = { key: letter, class: "letter-correct" };
       lettersCounter[letter]--;
     }
   });
 
-  _letters.forEach((letter, i) => {
-    if (letter === _word[i]) return;
-
+  letters.forEach((letter, i) => {
+    if (letter === word[i]) return;
     if (!lettersCounter[letter]) return (result[i] = { key: letter, class: "letter-absent" });
-
     if (lettersCounter[letter] > 0) {
       result[i] = { key: letter, class: "letter-elsewhere" };
       lettersCounter[letter]--;
@@ -63,7 +60,7 @@ export const checkWord = (
   const isValidQueryCheck = existsWord(check.toLowerCase(), words);
   if (!isValidQueryCheck || !isValidQueryWord) return { exists: false };
 
-  const keys = getKeys(_word.toLowerCase(), check.toLowerCase().split(""), words);
+  const keys = getKeys(_word.toUpperCase(), check.toUpperCase());
   return { exists: true, keys };
 };
 

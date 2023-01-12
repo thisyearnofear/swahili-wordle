@@ -1,71 +1,66 @@
 import { checkWord } from "utils/data";
-import { useEffect, useMemo, useRef } from "react";
-import { setGameIs } from "store/gameSlice";
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { animateKey } from "utils/animate-key";
+import { letterSelector, setGameIs } from "store/appSlice";
 
 export interface LetterRowProps extends React.HTMLProps<HTMLDivElement> {
   rowId: number;
   keys: string[];
 }
 
-export function LetterRow({ rowId, keys, className = "", ...props }: LetterRowProps) {
+export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
   const dispatch = useAppDispatch();
-  const { currentRow, word, words } = useAppSelector(({ game: { word, words }, board: { currentRow } }) => ({
-    word,
-    currentRow,
-    words,
-  }));
+  const { currentRow, word, words } = useAppSelector(letterSelector);
   const shouldCheck = rowId === currentRow - 1;
-
-  const firstLetter = useRef<HTMLDivElement>(null);
-  const secondLetter = useRef<HTMLDivElement>(null);
-  const thirdLetter = useRef<HTMLDivElement>(null);
-  const fourthLetter = useRef<HTMLDivElement>(null);
-  const fifthLetter = useRef<HTMLDivElement>(null);
-
-  const letters = useMemo(() => {
-    return [firstLetter, secondLetter, thirdLetter, fourthLetter, fifthLetter];
-  }, [firstLetter, secondLetter, thirdLetter, fourthLetter, fifthLetter]);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    letters.forEach((letter, i) => {
-      const el = letter.current;
-      if (!el) return;
+    const letters = ref.current?.childNodes as NodeListOf<Element>;
+    letters?.forEach((element, i) => {
       const key = keys[i];
-      el.classList[key ? "add" : "remove"]("selected");
-      el.setAttribute("data-animation", key ? "pop" : "none");
+      element.classList[key ? "add" : "remove"]("selected");
+      element.setAttribute("data-animation", key ? "pop" : "none");
     });
-  }, [letters, keys]);
+  }, [rowId, keys]);
 
   useEffect(() => {
     if (!shouldCheck) return;
     const check = checkWord(word, keys.join(""), words);
     if (!check.exists) return;
+
+    const letters = ref.current?.childNodes as NodeListOf<Element>;
+
     const didPlayerWin = check.keys.every((k) => k.class === "letter-correct");
     const time = 300;
-    letters.forEach((letter, i) => {
-      const element = letter.current;
+
+    letters?.forEach((element, i) => {
       if (!element) return;
       setTimeout(() => animateKey({ element, className: check.keys[i].class, time }), time * i);
     });
+
     setTimeout(() => {
       check.keys.forEach((item) => {
         const keyboardRow = document.querySelector(`.Game-keyboard-button[data-key="${item.key.toLowerCase()}"]`);
         if (!keyboardRow) return;
-        if (keyboardRow.classList.contains("letter-correct")) return;
-        if (keyboardRow.classList.contains(item.class)) return;
+
+        const contains = (token: string) => keyboardRow.classList.contains(token);
+        if (contains("letter-correct")) return;
+        if (contains(item.class)) return;
+        if (contains("letter-elsewhere") && item.class !== "letter-correct") return;
+
         animateKey({ element: keyboardRow, className: item.class, time });
       });
-      if (didPlayerWin) dispatch(setGameIs("won"));
-      else if (rowId === 5) dispatch(setGameIs("lost"));
+
+      if (didPlayerWin) return dispatch(setGameIs("won"));
+      if (rowId === 5) dispatch(setGameIs("lost"));
     }, time * letters.length + 1);
-  }, [letters, shouldCheck, keys, word, dispatch, rowId, words]);
+  }, [shouldCheck, keys, word, dispatch, rowId, words]);
 
   return (
-    <div className={`Row ${className}`} {...props}>
+    <div className="Row" ref={ref} {...props}>
       {[...Array(5)].map((_, i) => (
-        <div key={i} ref={letters[i]} className="Row-letter" data-animation="none">
+        <div key={i} className="Row-letter" data-animation="none">
           {keys[i] ?? ""}
         </div>
       ))}
