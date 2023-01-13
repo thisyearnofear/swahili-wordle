@@ -7,7 +7,17 @@ export const MAX_ROW_NUMBER = 6;
 export function useGame() {
   const dispatch = useAppDispatch();
 
-  const { isFinished, backspace, enter, currentRow, keys, words, numberOfLetters } = useAppSelector(gameHookSelector);
+  const {
+    isFinished,
+    backspace,
+    enter,
+    currentRow,
+    keys,
+    words,
+    numberOfLetters,
+    isChallengeActive,
+    isSettingsActive,
+  } = useAppSelector(gameHookSelector);
 
   const activeModal = useCallback(
     (content: string, time = 400) => {
@@ -42,6 +52,8 @@ export function useGame() {
 
   const addNewKeyWithEvent = useCallback(
     (e: WindowEventMap["keydown"]) => {
+      if (isChallengeActive || isSettingsActive) return;
+
       const key = e.key.toLowerCase();
       if (isFinished || currentRow === MAX_ROW_NUMBER || e.altKey || e.ctrlKey || e.metaKey) return;
       if (key === "backspace") return dispatch(setBackspace(true));
@@ -49,7 +61,7 @@ export function useGame() {
       if ((key && key.length !== 1) || !key.match(/[a-z]|ñ/gi) || keys[currentRow].length === numberOfLetters) return;
       dispatch(setCurrentKeys({ [currentRow]: [...keys[currentRow], key] }));
     },
-    [currentRow, isFinished, keys, dispatch, numberOfLetters]
+    [isChallengeActive, isSettingsActive, currentRow, isFinished, keys, dispatch, numberOfLetters]
   );
 
   return {

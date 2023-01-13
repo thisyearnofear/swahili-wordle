@@ -4,7 +4,7 @@
 
 This is a very simple clone of wordle game. The UI is taken from [wordlegame.org](https://wordlegame.org)
 
-Visit the page and play [here](https://iswilljr.github.io/wordle)
+Visit the page and play [here](https://playwordle.vercel.app/favicon.png)
 
 ## Demo
 

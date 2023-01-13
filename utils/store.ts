@@ -4,6 +4,7 @@ import { DEFAULT_NUMBER_OF_LETTERS } from "./numbers-of-letters";
 
 export interface RootState {
   isSettingsActive: boolean;
+  isChallengeActive: boolean;
   numberOfLetters: number;
   backspace: boolean;
   currentRow: number;
@@ -17,6 +18,7 @@ export interface RootState {
 
 export const createInitialState = (): RootState => ({
   isSettingsActive: false,
+  isChallengeActive: false,
   numberOfLetters: DEFAULT_NUMBER_OF_LETTERS,
   backspace: false,
   currentRow: 0,

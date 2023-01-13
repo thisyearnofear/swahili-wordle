@@ -12,6 +12,7 @@ export function Settings() {
     <Modal
       title="Settings"
       titleClass="lost"
+      className="settings"
       active={isSettingsActive}
       onClose={() => dispatch(setSettingsActive(false))}
     >

@@ -21,6 +21,7 @@ export const appSlice = createSlice({
     setEnter: createSetState("enter"),
     setGameIs: createSetState("gameIs"),
     setSettingsActive: createSetState("isSettingsActive"),
+    setChallengeActive: createSetState("isChallengeActive"),
     setNumberOfLetters: createSetState("numberOfLetters"),
   },
 });
@@ -35,6 +36,7 @@ export const {
   setGameIs,
   startGame,
   setSettingsActive,
+  setChallengeActive,
   setNumberOfLetter,
   setNumberOfLetters,
 } = appSlice.actions;
@@ -52,8 +54,28 @@ export const stateSelector = ({ gameIs, word }: RootState) => ({ gameIs, word })
 
 export const gameSelector = ({ backspace, enter }: RootState) => ({ backspace, enter });
 
-export const gameHookSelector = ({ backspace, currentRow, enter, gameIs, keys, words, numberOfLetters }: RootState) => {
-  return { backspace, currentRow, enter, keys, isFinished: gameIs !== "playing", words, numberOfLetters };
+export const gameHookSelector = ({
+  backspace,
+  currentRow,
+  enter,
+  gameIs,
+  keys,
+  words,
+  numberOfLetters,
+  isChallengeActive,
+  isSettingsActive,
+}: RootState) => {
+  return {
+    backspace,
+    currentRow,
+    enter,
+    keys,
+    isFinished: gameIs !== "playing",
+    words,
+    numberOfLetters,
+    isChallengeActive,
+    isSettingsActive,
+  };
 };
 
 export const settingsSelector = ({ isSettingsActive, numberOfLetters }: RootState) => ({

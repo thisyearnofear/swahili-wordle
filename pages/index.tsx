@@ -9,6 +9,7 @@ import { getWords } from "utils/get-words";
 import { gameSelector, startGame } from "store/appSlice";
 import { resetGame } from "utils/reset-game";
 import { Settings } from "components/Settings";
+import { Challenge } from "components/Challenge";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
@@ -51,6 +52,7 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
         </div>
       </div>
       <Settings />
+      <Challenge />
     </>
   );
 }

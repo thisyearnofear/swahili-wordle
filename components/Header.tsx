@@ -2,7 +2,7 @@ import { PlusCircleIcon, CogIcon, SparklesIcon } from "@heroicons/react/24/solid
 import { useCallback, useRef } from "react";
 import { setCookie } from "cookies-next";
 import { useAppDispatch } from "store/hooks";
-import { setSettingsActive } from "store/appSlice";
+import { setChallengeActive, setSettingsActive } from "store/appSlice";
 
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
@@ -22,7 +22,13 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
         <a className="lang" href="#lang">
           EN
         </a>
-        <button type="button" className="generator" style={{ display: "block" }} aria-label="Create a Game">
+        <button
+          type="button"
+          className="generator"
+          style={{ display: "block" }}
+          onClick={() => dispatch(setChallengeActive(true))}
+          aria-label="Create a Game"
+        >
           <PlusCircleIcon width="20" height="20" />
         </button>
         <div className="buttons flex">

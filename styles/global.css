@@ -206,7 +206,7 @@ body {
   }
 }
 @media (min-width: 479px) {
-  .modal_finish {
+  .settings {
     min-width: 350px;
     max-width: unset !important;
     width: max-content !important;
@@ -647,6 +647,7 @@ header .buttons button.button svg {
   margin-top: 8px;
 }
 .modal_finish {
+  user-select: none;
   color: var(--color);
   font-size: 15px;
   position: absolute;
@@ -909,4 +910,131 @@ header .buttons button.button svg {
   100% {
     transform: rotateX(0);
   }
+}
+
+.input {
+  width: 100%;
+  height: 42px;
+  padding: 0 13px;
+  font-family: var(--font_family);
+  border: 0;
+  border-radius: 7px;
+  font-size: 15px;
+  color: #2e3239;
+  background-color: #f1f3f7;
+  margin: 10px 0 5px;
+  border-radius: 5px;
+  max-width: 300px;
+}
+.dark .input {
+  color: #fff;
+  background-color: #393c54;
+}
+.valid {
+  font-size: 13px !important;
+  line-height: 18px !important;
+  color: #3bb867 !important;
+  position: absolute;
+  max-width: 315px;
+  width: 100%;
+  margin: 0 auto;
+}
+.not_valid {
+  font-size: 13px !important;
+  line-height: 18px !important;
+  color: #d36b8d !important;
+  position: absolute;
+  max-width: 315px;
+  width: 100%;
+  margin: 0 auto;
+}
+.input::-webkit-input-placeholder {
+  color: #5d5d7f;
+}
+.input::-moz-placeholder {
+  color: #5d5d7f;
+}
+.input::-ms-input-placeholder {
+  color: #5d5d7f;
+}
+.input::placeholder {
+  color: #5d5d7f;
+}
+.input:focus::-webkit-input-placeholder {
+  color: #c4c4e2;
+}
+.input:focus::-moz-placeholder {
+  color: #c4c4e2;
+}
+.input:focus::-ms-input-placeholder {
+  color: #c4c4e2;
+}
+.input:focus::placeholder {
+  color: #c4c4e2;
+}
+.dark .input::-webkit-input-placeholder {
+  color: #aaaec8;
+}
+.dark .input::-moz-placeholder {
+  color: #aaaec8;
+}
+.dark .input::-ms-input-placeholder {
+  color: #aaaec8;
+}
+.dark .input::placeholder {
+  color: #aaaec8;
+}
+.dark .input:focus::-webkit-input-placeholder {
+  color: #6c6f8a;
+}
+.dark .input:focus::-moz-placeholder {
+  color: #6c6f8a;
+}
+.dark .input:focus::-ms-input-placeholder {
+  color: #6c6f8a;
+}
+.dark .input:focus::placeholder {
+  color: #6c6f8a;
+}
+input,
+input:active {
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  outline: 0 transparent !important;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-outline: none !important;
+}
+:focus {
+  outline: 0;
+}
+
+.modal_finish .copy_btn button {
+  color: #fff;
+  font-family: var(--font_family);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 10px 30px;
+  line-height: 24px;
+  margin: 25px 0 10px;
+  cursor: pointer;
+  vertical-align: top;
+  border: 0;
+  border-radius: 5px;
+  background: #4673d9;
+  transition: 0.2s;
+}
+.modal_finish .copy_btn:hover button {
+  background: #5e8cf3;
+}
+.modal_finish .copy_btn:active button {
+  padding: 10px 35px;
+}
+.modal_finish .or_text {
+  color: #75819c;
+  font-size: 12px;
+  margin: 5px 0;
 }
