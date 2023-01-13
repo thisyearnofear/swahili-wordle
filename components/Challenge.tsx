@@ -57,7 +57,7 @@ export function Challenge() {
                 setTimeout(() => (e.style.display = "none"), 3000);
               };
               const create = async (word: string) => {
-                const data = getChallengeModeWord(words, encode(word));
+                const data = getChallengeModeWord(words, encode(word.toLowerCase()));
                 if (!data.exist) return false;
 
                 const encodedWord = data.encodedWord.replace(/=+$/g, "");
