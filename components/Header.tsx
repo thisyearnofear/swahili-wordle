@@ -2,7 +2,7 @@ import { IconCirclePlus, IconSettings, IconMoon, IconSun } from "@tabler/icons";
 import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
 import { useAppDispatch } from "store/hooks";
-import { setChallengeActive, setSettingsActive } from "store/appSlice";
+import { setChallengeActive, setLanguagesActive, setSettingsActive } from "store/appSlice";
 import { useLocale } from "hooks/use-locale";
 import { useTranslation } from "hooks/use-translations";
 
@@ -25,9 +25,9 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   return (
     <header>
       <div className="cont flex">
-        <a className="lang" href="#lang">
+        <button className="lang" onClick={() => dispatch(setLanguagesActive(true))}>
           {locale.toUpperCase()}
-        </a>
+        </button>
         <button
           type="button"
           className="generator"

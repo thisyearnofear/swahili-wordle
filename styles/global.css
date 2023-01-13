@@ -379,6 +379,10 @@ body {
   .Row-letter[data-animation="flip-out"] {
     animation-duration: 5ms !important;
   }
+  .lang_checkbox .check_text {
+    justify-content: left !important;
+    padding: 5px 10px 5px 20px !important;
+  }
 }
 @media (max-width: 479px) {
   header .buttons button + button,
@@ -522,6 +526,8 @@ header .lang {
   line-height: 34px;
   transition: 0.2s;
   cursor: pointer;
+  border: 0;
+  outline: 0;
 }
 header .lang .icon svg {
   width: 22px;
@@ -1036,4 +1042,91 @@ input:active {
   color: #75819c;
   font-size: 12px;
   margin: 5px 0;
+}
+.languages {
+  --margin-bottom: 11px;
+  margin-bottom: calc(var(--margin-bottom) * -1);
+  --margin-left: 10px;
+  margin-left: calc(var(--margin-left) * -1);
+  justify-content: center;
+}
+* + .languages {
+  margin-top: 12px;
+}
+.languages .lang_checkbox {
+  margin-bottom: var(--margin-bottom);
+  margin-left: var(--margin-left);
+}
+
+.lang_checkbox {
+  text-decoration: none;
+}
+.lang_checkbox .label_check {
+  color: var(--color5);
+  font-family: var(--font_family);
+  font-size: 14px;
+  line-height: 34px;
+  display: table-cell;
+  vertical-align: top;
+}
+html.dark .lang_checkbox .label_check {
+  color: var(--color);
+}
+.lang_checkbox input[type="radio"] {
+  display: none;
+}
+.lang_checkbox .check_text {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 16px;
+  min-width: 170px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-radius: 8px;
+  background: #e9edf7;
+  transition: 0.2s;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+}
+.lang_checkbox .check_text:hover,
+html.dark .lang_checkbox .check_text:hover {
+  color: #fff;
+  background: #6bba6b;
+}
+html.dark .lang_checkbox .check_text {
+  color: #c0c3d6;
+  background: #40445c;
+}
+.lang_checkbox .check_text .icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.lang_checkbox .check_text .icon svg {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+.lang_checkbox_selected .check_text,
+html.dark .lang_checkbox_selected .check_text {
+  color: #fff;
+  font-weight: 700;
+  background-color: #6bba6b !important;
+}
+.lang_checkbox_disabled .check_text {
+  color: #8f98b0;
+  cursor: default;
+  background: #eceff8;
+}
+html.dark .lang_checkbox_disabled .check_text {
+  color: #5e627f;
+  background: #2c2f41;
 }

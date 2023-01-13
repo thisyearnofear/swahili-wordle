@@ -20,7 +20,12 @@ export function Settings() {
       active={isSettingsActive}
       onClose={() => dispatch(setSettingsActive(false))}
     >
-      <div className="desc">{translation.number_of_letters_title}</div>
+      <div className="desc" style={{ color: "#fff", fontWeight: 600 }}>
+        {translation.number_of_letters_title}
+      </div>
+      <div className="desc" style={{ maxWidth: 350 }}>
+        {translation.number_of_letters_description}
+      </div>
       <div className="numbers flex">
         {NUMBERS_OF_LETTERS.map((number) => (
           <div key={number} className="number_checkbox">
