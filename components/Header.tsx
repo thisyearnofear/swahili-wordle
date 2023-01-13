@@ -5,6 +5,7 @@ import { useAppDispatch } from "store/hooks";
 import { setChallengeActive, setLanguagesActive, setSettingsActive } from "store/appSlice";
 import { useLocale } from "hooks/use-locale";
 import { useTranslation } from "hooks/use-translations";
+import { EnglishUSFlag, SpanishFlag } from "./flags";
 
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
     <header>
       <div className="cont flex">
         <button className="lang" onClick={() => dispatch(setLanguagesActive(true))}>
+          <span className="icon">{locale === "en" ? <EnglishUSFlag /> : <SpanishFlag />}</span>
           {locale.toUpperCase()}
         </button>
         <button
