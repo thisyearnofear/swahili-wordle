@@ -1,22 +1,18 @@
 # Wordle Game: Guess the Hidden Word
 
-[![Deploy to GitHub Pages](https://github.com/iswilljr/wordle/actions/workflows/deploy.yml/badge.svg)](https://github.com/iswilljr/wordle/actions/workflows/deploy.yml)
+This is a very simple clone of [wordlegame.org](https://wordlegame.org). Play the wordlegame [here](https://playwordle.vercel.app/)
 
-This is a very simple clone of wordle game. The UI is taken from [wordlegame.org](https://wordlegame.org)
+## Get Started
 
-Visit the page and play [here](https://playwordle.vercel.app/favicon.png)
+The rules are very simple: You need to guess the hidden word (from 4 to 11 letters) in 6 tries. To get started, just type any word on the first line. If the letter is guessed correctly and is in the correct place, it will be highlighted in green, if the letter is in the word, but in the wrong place - in yellow, and if the letter is not in the word, it will remain gray. Can you guess the hidden word in 6 tries?
 
-## Demo
+### Play Wordle with Various Number of Letters
 
-It has Light and Dark mode
+Choose a word puzzle with the length of the hidden word from 4 to 11 letters.
 
-### Light Mode
+### Wordle Generator
 
-![Wordle Game Light Mode](.demo/screenshot_wordle.png)
-
-### Dark Mode
-
-![Wordle Game Dark Mode](.demo/screenshot_wordle_dark.png)
+Generate your own Wordle puzzle with any word from 4 to 11 letters and challenge your friends! Can your friend guess the hidden word in 6 tries?
 
 ## License
 
