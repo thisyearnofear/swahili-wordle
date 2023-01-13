@@ -10,8 +10,10 @@ import { gameSelector, startGame } from "store/appSlice";
 import { resetGame } from "utils/reset-game";
 import { Settings } from "components/Settings";
 import { Challenge } from "components/Challenge";
+import { useRouter } from "next/router";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const { deleteLastLetter, passToNextRow, addNewKeyWithEvent, activeModal } = useGame();
@@ -29,14 +31,18 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
   useEffect(() => {
     const start = async () => {
       const words = await getWords();
-      dispatch(startGame(words));
+      const challenge = router.query.challenge;
+      const encodedChallengeModeWord = typeof challenge === "string" ? challenge : undefined;
+
+      dispatch(startGame({ words, encodedChallengeModeWord }));
       resetGame();
       activeModal("Guess the first word!", 1500);
     };
     start().catch(() => {
       activeModal("Something went wrong, reload the page and try again", 10000);
     });
-  }, [activeModal, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useWindowEvent("keydown", addNewKeyWithEvent);
 

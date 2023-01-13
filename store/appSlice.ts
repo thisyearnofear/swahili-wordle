@@ -6,14 +6,17 @@ export const appSlice = createSlice({
   name: "app",
   initialState: createInitialState(),
   reducers: {
-    startGame: (state, action: PayloadAction<string[]>) => {
-      return restartGameAction(state, action.payload);
+    startGame: (state, action: PayloadAction<{ words: string[]; encodedChallengeModeWord?: string }>) => {
+      const { words, encodedChallengeModeWord } = action.payload;
+      return restartGameAction(state, { words, encodedChallengeModeWord });
     },
     setNumberOfLetter: (state, action: PayloadAction<number>) => {
       resetGame();
-      return restartGameAction(state, state.words, action.payload);
+      return restartGameAction(state, { numberOfLetters: action.payload });
     },
-    restartGame: (state) => restartGameAction(state),
+    restartGame: (state, action: PayloadAction<number | undefined>) => {
+      return restartGameAction(state, { numberOfLetters: action.payload });
+    },
     setCurrentKeys: createSetState("keys", true),
     setModal: createSetState("modal", true),
     setBackspace: createSetState("backspace"),
@@ -48,9 +51,14 @@ export const letterSelector = ({ currentRow, word, words, numberOfLetters }: Roo
   numberOfLetters,
 });
 
-export const panelSelector = ({ gameIs, keys, modal }: RootState) => ({ gameIs, keys, modal });
+export const panelSelector = ({ gameIs, keys, modal, isChallengeMode }: RootState) => ({
+  gameIs,
+  keys,
+  modal,
+  isChallengeMode,
+});
 
-export const stateSelector = ({ gameIs, word }: RootState) => ({ gameIs, word });
+export const stateSelector = ({ gameIs, word, isChallengeMode }: RootState) => ({ gameIs, word, isChallengeMode });
 
 export const gameSelector = ({ backspace, enter }: RootState) => ({ backspace, enter });
 

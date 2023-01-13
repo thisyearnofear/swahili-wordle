@@ -6,7 +6,7 @@ import { panelSelector } from "store/appSlice";
 import { MAX_ROW_NUMBER } from "hooks/use-game";
 
 export function GamePanel() {
-  const { gameIs, keys, modal } = useAppSelector(panelSelector);
+  const { gameIs, keys, modal, isChallengeMode } = useAppSelector(panelSelector);
 
   return (
     <div>
@@ -16,6 +16,11 @@ export function GamePanel() {
           return <LetterRow rowId={i} keys={keys[key]} key={i} />;
         })}
       </div>
+      {gameIs === "playing" && isChallengeMode && (
+        <div className="message">
+          <b>Challenge Mode</b>
+        </div>
+      )}
       {gameIs !== "playing" && (
         <div className="message">
           <b>You {gameIs}!</b>

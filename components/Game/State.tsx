@@ -3,10 +3,14 @@ import { resetGame } from "utils/reset-game";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { restartGame, stateSelector } from "store/appSlice";
 import { Modal } from "./Modal";
+import { getCookie } from "cookies-next";
+import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
+import { useRouter } from "next/router";
 
 export function GameState() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const { gameIs, word } = useAppSelector(stateSelector);
+  const { gameIs, word, isChallengeMode } = useAppSelector(stateSelector);
   const wordToGuess = decodeWord(word);
 
   return (
@@ -30,11 +34,16 @@ export function GameState() {
           <button
             type="button"
             onClick={() => {
-              dispatch(restartGame());
+              if (isChallengeMode) void router.push("/");
+
+              const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY);
+              const numberOfLetters = getNumberOfLetters(numberOfLettersCookie);
+
+              dispatch(restartGame(numberOfLetters));
               resetGame();
             }}
           >
-            Restart
+            {isChallengeMode ? "New Game" : "Restart"}
           </button>
         </div>
       </div>

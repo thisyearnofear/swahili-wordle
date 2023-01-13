@@ -6,7 +6,7 @@ import { getCookie } from "cookies-next";
 import { store } from "store/store";
 import { Footer } from "components/Footer";
 import { setNumberOfLetters } from "store/appSlice";
-import { DEFAULT_NUMBER_OF_LETTERS, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
+import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 
 export default function App({
   Component,
@@ -38,10 +38,9 @@ export default function App({
 
 App.getInitialProps = ({ ctx }: AppContext) => {
   const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY, ctx);
-  const numberOfLetters = +(numberOfLettersCookie ?? 0) || DEFAULT_NUMBER_OF_LETTERS;
 
   return {
-    numberOfLetters,
+    numberOfLetters: getNumberOfLetters(numberOfLettersCookie),
     colorScheme: getCookie("preferred-color-theme", ctx),
   };
 };
