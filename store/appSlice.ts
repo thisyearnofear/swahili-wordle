@@ -2,17 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { resetGame } from "utils/reset-game";
 import { createInitialState, createSetState, restartGameAction, RootState } from "utils/store";
 
-interface StartGamePayload {
-  words: string[];
-  numberOfLetters: number;
-}
-
 export const appSlice = createSlice({
   name: "app",
   initialState: createInitialState(),
   reducers: {
-    startGame: (state, { payload: { numberOfLetters, words } }: PayloadAction<StartGamePayload>) => {
-      return restartGameAction(state, words, numberOfLetters);
+    startGame: (state, action: PayloadAction<string[]>) => {
+      return restartGameAction(state, action.payload);
     },
     setNumberOfLetter: (state, action: PayloadAction<number>) => {
       resetGame();
@@ -26,6 +21,7 @@ export const appSlice = createSlice({
     setEnter: createSetState("enter"),
     setGameIs: createSetState("gameIs"),
     setSettingsActive: createSetState("isSettingsActive"),
+    setNumberOfLetters: createSetState("numberOfLetters"),
   },
 });
 
@@ -40,6 +36,7 @@ export const {
   startGame,
   setSettingsActive,
   setNumberOfLetter,
+  setNumberOfLetters,
 } = appSlice.actions;
 
 export const letterSelector = ({ currentRow, word, words, numberOfLetters }: RootState) => ({
