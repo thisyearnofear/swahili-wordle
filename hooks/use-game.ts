@@ -1,10 +1,12 @@
 import { useCallback } from "react";
 import { setModal, setBackspace, setCurrentKeys, setCurrentRow, setEnter, gameHookSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useTranslation } from "./use-translations";
 
 export const MAX_ROW_NUMBER = 6;
 
 export function useGame() {
+  const translation = useTranslation();
   const dispatch = useAppDispatch();
 
   const {
@@ -36,11 +38,11 @@ export function useGame() {
   const passToNextRow = useCallback(() => {
     if (enter) dispatch(setEnter(false));
     if (currentRow === MAX_ROW_NUMBER) return;
-    if (keys[currentRow].length < numberOfLetters) return activeModal("Too short");
+    if (keys[currentRow].length < numberOfLetters) return activeModal(translation.too_short);
     const exists = words.includes(keys[currentRow].join(""));
-    if (!exists) return activeModal("Word not found");
+    if (!exists) return activeModal(translation.not_a_valid_word);
     dispatch(setCurrentRow(currentRow + 1));
-  }, [numberOfLetters, enter, currentRow, keys, dispatch, activeModal, words]);
+  }, [numberOfLetters, enter, currentRow, keys, dispatch, activeModal, words, translation]);
 
   const addNewKey = useCallback(
     (key: string) => {

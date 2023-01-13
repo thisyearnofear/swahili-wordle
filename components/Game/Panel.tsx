@@ -4,8 +4,11 @@ import { LetterRow } from "components/Letter";
 import { useAppSelector } from "store/hooks";
 import { panelSelector } from "store/appSlice";
 import { MAX_ROW_NUMBER } from "hooks/use-game";
+import { useTranslation } from "hooks/use-translations";
 
 export function GamePanel() {
+  const translation = useTranslation();
+
   const { gameIs, keys, modal, isChallengeMode } = useAppSelector(panelSelector);
 
   return (
@@ -18,12 +21,12 @@ export function GamePanel() {
       </div>
       {gameIs === "playing" && isChallengeMode && (
         <div className="message">
-          <b>Challenge Mode</b>
+          <b>{translation.tip_challenge}</b>
         </div>
       )}
       {gameIs !== "playing" && (
         <div className="message">
-          <b>You {gameIs}!</b>
+          <b>{gameIs === "won" ? translation.tip_you_win : translation.tip_you_lost}</b>
         </div>
       )}
       <div className="Game-keyboard">

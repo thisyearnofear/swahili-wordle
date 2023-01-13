@@ -11,9 +11,11 @@ import { resetGame } from "utils/reset-game";
 import { Settings } from "components/Settings";
 import { Challenge } from "components/Challenge";
 import { useRouter } from "next/router";
+import { useTranslation } from "hooks/use-translations";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const router = useRouter();
+  const translation = useTranslation();
   const dispatch = useAppDispatch();
 
   const { deleteLastLetter, passToNextRow, addNewKeyWithEvent, activeModal } = useGame();
@@ -30,17 +32,15 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
 
   useEffect(() => {
     const start = async () => {
-      const words = await getWords();
+      const words = await getWords(router.locale ?? "en");
       const challenge = router.query.challenge;
       const encodedChallengeModeWord = typeof challenge === "string" ? challenge : undefined;
 
       dispatch(startGame({ words, encodedChallengeModeWord }));
       resetGame();
-      activeModal("Guess the first word!", 1500);
+      activeModal(translation.make_your_first_guess, 1500);
     };
-    start().catch(() => {
-      activeModal("Something went wrong, reload the page and try again", 10000);
-    });
+    start().catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -6,17 +6,23 @@ import { Modal } from "./Modal";
 import { getCookie } from "cookies-next";
 import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { useRouter } from "next/router";
+import { useTranslation } from "hooks/use-translations";
 
 export function GameState() {
   const router = useRouter();
+  const translation = useTranslation();
   const dispatch = useAppDispatch();
   const { gameIs, word, isChallengeMode } = useAppSelector(stateSelector);
   const wordToGuess = decodeWord(word);
 
   return (
-    <Modal active={gameIs !== "playing"} title={`You ${gameIs}!${gameIs === "won" ? " 🏆" : ""}`} titleClass={gameIs}>
+    <Modal
+      active={gameIs !== "playing"}
+      title={gameIs === "won" ? translation.tip_you_win : translation.tip_you_lost}
+      titleClass={gameIs}
+    >
       <div className="cont">
-        <div className="desc">The answer was:</div>
+        <div className="desc">{translation.the_answer_was}</div>
         <div className="word">
           <span>{gameIs !== "playing" && wordToGuess}</span>
         </div>
@@ -27,7 +33,7 @@ export function GameState() {
             rel="noreferrer"
             href={`https://wordlegame.org/dictionary?q=${wordToGuess}+definition`}
           >
-            What does this word mean?
+            {translation.what_does_it_mean}
           </a>
         )}
         <div className="restart_btn">
@@ -43,7 +49,7 @@ export function GameState() {
               resetGame();
             }}
           >
-            {isChallengeMode ? "New Game" : "Restart"}
+            {isChallengeMode ? translation.new_game : translation.restart}
           </button>
         </div>
       </div>

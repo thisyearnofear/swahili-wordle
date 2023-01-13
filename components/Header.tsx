@@ -3,9 +3,13 @@ import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
 import { useAppDispatch } from "store/hooks";
 import { setChallengeActive, setSettingsActive } from "store/appSlice";
+import { useLocale } from "hooks/use-locale";
+import { useTranslation } from "hooks/use-translations";
 
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
+  const { locale } = useLocale();
+  const translation = useTranslation();
 
   const [theme, setTheme] = useState<"dark" | "light">(colorScheme);
 
@@ -22,14 +26,14 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
     <header>
       <div className="cont flex">
         <a className="lang" href="#lang">
-          EN
+          {locale.toUpperCase()}
         </a>
         <button
           type="button"
           className="generator"
           style={{ display: "block" }}
           onClick={() => dispatch(setChallengeActive(true))}
-          aria-label="Create a Game"
+          aria-label={translation.wordle_generator_title}
         >
           <IconCirclePlus width="20" height="20" />
         </button>
@@ -37,12 +41,17 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
           <button
             type="button"
             className="button"
-            aria-label="Settings"
+            aria-label={translation.settings}
             onClick={() => dispatch(setSettingsActive(true))}
           >
             <IconSettings size={22} />
           </button>
-          <button type="button" className="button" onClick={() => toggleColorTheme()} aria-label="Chage theme">
+          <button
+            type="button"
+            className="button"
+            onClick={() => toggleColorTheme()}
+            aria-label={translation.dark_mode_description}
+          >
             {theme === "dark" ? <IconMoon size={22} /> : <IconSun size={22} />}
           </button>
         </div>

@@ -7,6 +7,7 @@ import { store } from "store/store";
 import { Footer } from "components/Footer";
 import { setNumberOfLetters } from "store/appSlice";
 import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
+import { useTranslation } from "hooks/use-translations";
 
 export default function App({
   Component,
@@ -14,17 +15,16 @@ export default function App({
   colorScheme,
   numberOfLetters,
 }: AppProps & { colorScheme: "light" | "dark"; numberOfLetters: number }) {
+  const translation = useTranslation();
+
   store.dispatch(setNumberOfLetters(numberOfLetters));
 
   return (
     <>
       <Head>
-        <title>Wordle Game</title>
+        <title>{translation.title}</title>
         <link rel="icon" href="/favicon.png" />
-        <meta
-          name="description"
-          content="Play Wordle with unlimited words! Can you guess the hidden word in 6 tries?"
-        />
+        <meta name="description" content={translation.description} />
       </Head>
       <Provider store={store}>
         <div className="App">

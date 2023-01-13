@@ -1,4 +1,5 @@
 import { IconX } from "@tabler/icons";
+import { useTranslation } from "hooks/use-translations";
 import { useRef } from "react";
 
 interface ModalProps {
@@ -11,6 +12,7 @@ interface ModalProps {
 }
 
 export function Modal({ active, className, children, title, titleClass, onClose }: ModalProps) {
+  const translation = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -20,6 +22,7 @@ export function Modal({ active, className, children, title, titleClass, onClose 
       <button
         type="button"
         className="close"
+        aria-label={translation.close}
         onClick={() => {
           if (!modalRef.current) return;
           modalRef.current.classList.remove("active");

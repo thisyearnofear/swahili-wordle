@@ -1,4 +1,5 @@
 import { setCookie } from "cookies-next";
+import { useTranslation } from "hooks/use-translations";
 import { useRouter } from "next/router";
 import { setNumberOfLetter, setSettingsActive, settingsSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
@@ -7,18 +8,19 @@ import { Modal } from "./Game/Modal";
 
 export function Settings() {
   const router = useRouter();
+  const translation = useTranslation();
   const dispatch = useAppDispatch();
   const { isSettingsActive, numberOfLetters, isChallengeMode } = useAppSelector(settingsSelector);
 
   return (
     <Modal
-      title="Settings"
+      title={translation.settings}
       titleClass="lost"
       className="settings"
       active={isSettingsActive}
       onClose={() => dispatch(setSettingsActive(false))}
     >
-      <div className="desc">Number of Letters</div>
+      <div className="desc">{translation.number_of_letters_title}</div>
       <div className="numbers flex">
         {NUMBERS_OF_LETTERS.map((number) => (
           <div key={number} className="number_checkbox">
