@@ -1,5 +1,5 @@
-import { PlusCircleIcon, CogIcon, SparklesIcon } from "@heroicons/react/24/solid";
-import { useCallback, useRef } from "react";
+import { IconCirclePlus, IconSettings, IconMoon, IconSun } from "@tabler/icons";
+import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
 import { useAppDispatch } from "store/hooks";
 import { setChallengeActive, setSettingsActive } from "store/appSlice";
@@ -7,13 +7,15 @@ import { setChallengeActive, setSettingsActive } from "store/appSlice";
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
 
-  const theme = useRef<"dark" | "light">(colorScheme);
+  const [theme, setTheme] = useState<"dark" | "light">(colorScheme);
 
   const toggleColorTheme = useCallback(() => {
-    const newTheme = theme.current === "dark" ? "light" : "dark";
-    theme.current = newTheme;
-    setCookie("preferred-color-theme", newTheme);
-    document.documentElement.classList.toggle("dark");
+    setTheme((theme) => {
+      const newTheme = theme === "dark" ? "light" : "dark";
+      setCookie("preferred-color-theme", newTheme);
+      document.documentElement.classList.toggle("dark");
+      return newTheme;
+    });
   }, []);
 
   return (
@@ -29,7 +31,7 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
           onClick={() => dispatch(setChallengeActive(true))}
           aria-label="Create a Game"
         >
-          <PlusCircleIcon width="20" height="20" />
+          <IconCirclePlus width="20" height="20" />
         </button>
         <div className="buttons flex">
           <button
@@ -38,10 +40,10 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
             aria-label="Settings"
             onClick={() => dispatch(setSettingsActive(true))}
           >
-            <CogIcon width="22" height="22" />
+            <IconSettings size={22} />
           </button>
           <button type="button" className="button" onClick={() => toggleColorTheme()} aria-label="Chage theme">
-            <SparklesIcon width="22" height="22" />
+            {theme === "dark" ? <IconMoon size={22} /> : <IconSun size={22} />}
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { IconX } from "@tabler/icons";
 import { useRef } from "react";
 
 interface ModalProps {
@@ -26,7 +26,7 @@ export function Modal({ active, className, children, title, titleClass, onClose 
           onClose?.();
         }}
       >
-        <XMarkIcon />
+        <IconX />
       </button>
     </div>
   );

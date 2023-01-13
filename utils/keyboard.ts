@@ -1,8 +1,8 @@
-import { BackspaceIcon } from "@heroicons/react/24/solid";
+import { IconBackspace } from "@tabler/icons";
 import { Key } from "components/Key";
 
 const className = "Game-keyboard-button-wide";
-const backspace: Key = { className, key: "backspace", label: "Backspace", icon: BackspaceIcon };
+const backspace: Key = { className, key: "backspace", label: "Backspace", icon: IconBackspace };
 const enter: Key = { className, key: "enter", label: "Enter" };
 
 const keysRow1 = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
