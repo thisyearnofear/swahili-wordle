@@ -1,12 +1,14 @@
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 import { setNumberOfLetter, setSettingsActive, settingsSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { NUMBERS_OF_LETTERS, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { Modal } from "./Game/Modal";
 
 export function Settings() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isSettingsActive, numberOfLetters } = useAppSelector(settingsSelector);
+  const { isSettingsActive, numberOfLetters, isChallengeMode } = useAppSelector(settingsSelector);
 
   return (
     <Modal
@@ -25,6 +27,8 @@ export function Settings() {
                 type="radio"
                 name="numbers"
                 onChange={(e) => {
+                  if (isChallengeMode) void router.replace("/");
+
                   const numberOfLetters = +e.target.value;
                   setCookie(NUMBER_OF_LETTERS_KEY, numberOfLetters.toString());
                   dispatch(setNumberOfLetter(numberOfLetters));

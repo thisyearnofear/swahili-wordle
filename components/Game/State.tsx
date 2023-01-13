@@ -34,7 +34,7 @@ export function GameState() {
           <button
             type="button"
             onClick={() => {
-              if (isChallengeMode) void router.push("/");
+              if (isChallengeMode) void router.replace("/");
 
               const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY);
               const numberOfLetters = getNumberOfLetters(numberOfLettersCookie);

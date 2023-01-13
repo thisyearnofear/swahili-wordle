@@ -86,7 +86,8 @@ export const gameHookSelector = ({
   };
 };
 
-export const settingsSelector = ({ isSettingsActive, numberOfLetters }: RootState) => ({
+export const settingsSelector = ({ isChallengeMode, isSettingsActive, numberOfLetters }: RootState) => ({
+  isChallengeMode,
   isSettingsActive,
   numberOfLetters,
 });
