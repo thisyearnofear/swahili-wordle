@@ -1,11 +1,13 @@
+import { encode } from "js-base64";
 import { useRef, useState } from "react";
 import { setChallengeActive } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import { getChallengeModeWord } from "utils/store";
 import { Modal } from "./Game/Modal";
 
 export function Challenge() {
   const dispatch = useAppDispatch();
-  const isChallengeActive = useAppSelector((state) => state.isChallengeActive);
+  const { isChallengeActive, words } = useAppSelector(({ isChallengeActive, words }) => ({ isChallengeActive, words }));
   const [value, setValue] = useState("");
   const validRef = useRef<HTMLDivElement>(null);
   const invalidRef = useRef<HTMLDivElement>(null);
@@ -42,20 +44,32 @@ export function Challenge() {
         <div className="copy_btn">
           <button
             type="button"
-            onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onClick={async () => {
               if (!validRef.current || !invalidRef.current) return;
               const animate = (e: HTMLDivElement) => {
                 e.style.display = "block";
                 setTimeout(() => (e.style.display = "none"), 3000);
               };
-              const create = (word: string) => false;
+              const create = async (word: string) => {
+                const data = getChallengeModeWord(words, encode(word));
+                if (!data.exist) return false;
+
+                const encodedWord = data.encodedWord.replace(/=+$/g, "");
+                const link = `${(process.env.NEXT_PUBLIC_BASE_URL ?? "").replace(/\/$/, "")}/?challenge=${encodedWord}`;
+
+                try {
+                  await navigator.clipboard.writeText(link);
+                } catch {
+                  return false;
+                }
+
+                return link;
+              };
 
               if (value.length < 4 || value.length > 11) return animate(invalidRef.current);
-
-              const link = create(value);
-
+              const link = await create(value);
               if (!link) return animate(invalidRef.current);
-
               animate(validRef.current);
             }}
           >
