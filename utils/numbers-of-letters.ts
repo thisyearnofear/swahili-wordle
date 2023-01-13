@@ -1,3 +1,5 @@
+export const NUMBER_OF_LETTERS_KEY = "number-of-letters";
+
 export const NUMBERS_OF_LETTERS = [4, 5, 6, 7, 8, 9, 10, 11];
 
 export const DEFAULT_NUMBER_OF_LETTERS = 5;

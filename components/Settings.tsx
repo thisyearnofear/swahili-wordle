@@ -1,6 +1,7 @@
+import { setCookie } from "cookies-next";
 import { setNumberOfLetter, setSettingsActive, settingsSelector } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { NUMBERS_OF_LETTERS } from "utils/numbers-of-letters";
+import { NUMBERS_OF_LETTERS, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { Modal } from "./Game/Modal";
 
 export function Settings() {
@@ -24,7 +25,7 @@ export function Settings() {
                 name="numbers"
                 onChange={(e) => {
                   const numberOfLetters = +e.target.value;
-                  localStorage.setItem("numberOfLetters", numberOfLetters.toString());
+                  setCookie(NUMBER_OF_LETTERS_KEY, numberOfLetters.toString());
                   dispatch(setNumberOfLetter(numberOfLetters));
                   dispatch(setSettingsActive(false));
                 }}
