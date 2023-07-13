@@ -1,11 +1,11 @@
 module.exports = {
   // Type check TypeScript files
-  "**/*.(ts|tsx)": () => ["yarn tsc --noEmit"],
+  "**/*.(ts|tsx)": () => ["pnpm tsc --noEmit"],
 
   // Lint & Prettify TS and JS files
   "**/*.(ts|tsx|js)": (filenames) => [
-    `yarn eslint --fix ${filenames.join(" ")}`,
-    `yarn prettier --write ${filenames.join(" ")}`,
+    `pnpm eslint --fix ${filenames.join(" ")}`,
+    `pnpm prettier --write ${filenames.join(" ")}`,
   ],
-  "*": (filenames) => [`yarn prettier -wu ${filenames.join(" ")}`],
+  "*": (filenames) => [`pnpm prettier -wu ${filenames.join(" ")}`],
 };
