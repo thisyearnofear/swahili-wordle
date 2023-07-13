@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { resetGame } from "utils/reset-game";
-import { createInitialState, createSetState, restartGameAction, RootState } from "utils/store";
+import { createInitialState, createSetState, restartGameAction, type RootState } from "utils/store";
 
 export const appSlice = createSlice({
   name: "app",

@@ -1,5 +1,5 @@
-import { IconBackspace } from "@tabler/icons";
-import { Key } from "components/Key";
+import { IconBackspace } from "@tabler/icons-react";
+import type { Key } from "components/Key";
 
 const className = "Game-keyboard-button-wide";
 const backspace: Key = { className, key: "backspace", label: "Backspace", icon: IconBackspace };

@@ -45,7 +45,7 @@ function getKeys(word: string, check: string): Word[] {
 export const checkWord = (
   encodedWord: string,
   check: string,
-  words: string[]
+  words: string[],
 ): { exists: false } | { exists: true; keys: Word[] } => {
   const word = decode(encodedWord);
   const isValidQueryWord = words.includes(word.toLowerCase());

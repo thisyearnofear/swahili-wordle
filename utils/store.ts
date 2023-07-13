@@ -1,4 +1,4 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { decode, encode } from "js-base64";
 import { DEFAULT_NUMBER_OF_LETTERS } from "./numbers-of-letters";
 
@@ -37,7 +37,7 @@ export const createInitialState = (): RootState => ({
 export const createSetState = <T extends keyof RootState>(property: T, mergeObj?: boolean) => {
   return (
     state: RootState,
-    action: PayloadAction<RootState[T] extends Record<string, unknown> ? Partial<RootState[T]> : RootState[T]>
+    action: PayloadAction<RootState[T] extends Record<string, unknown> ? Partial<RootState[T]> : RootState[T]>,
   ) => {
     if (!mergeObj) {
       state[property] = action.payload as any;
@@ -57,7 +57,7 @@ export const getWords = (words: string[], length: number) => {
 
 export const getChallengeModeWord = (
   words: string[],
-  challenge?: string
+  challenge?: string,
 ): { exist: false } | { exist: true; challenge: string; encodedWord: string } => {
   const challengeModeWord = challenge && decode(challenge);
   const existsChallengeModeWord = !!(challengeModeWord && words.includes(challengeModeWord));

@@ -26,7 +26,7 @@ export function useGame() {
       dispatch(setModal({ content, isOpen: true }));
       setTimeout(() => dispatch(setModal({ isOpen: false })), time);
     },
-    [dispatch]
+    [dispatch],
   );
 
   const deleteLastLetter = useCallback(() => {
@@ -49,7 +49,7 @@ export function useGame() {
       if (currentRow !== MAX_ROW_NUMBER && keys[currentRow].length !== numberOfLetters)
         dispatch(setCurrentKeys({ [currentRow]: [...keys[currentRow], key] }));
     },
-    [currentRow, keys, dispatch, numberOfLetters]
+    [currentRow, keys, dispatch, numberOfLetters],
   );
 
   const addNewKeyWithEvent = useCallback(
@@ -63,7 +63,7 @@ export function useGame() {
       if ((key && key.length !== 1) || !key.match(/[a-z]|ñ/gi) || keys[currentRow].length === numberOfLetters) return;
       dispatch(setCurrentKeys({ [currentRow]: [...keys[currentRow], key] }));
     },
-    [isChallengeActive, isSettingsActive, currentRow, isFinished, keys, dispatch, numberOfLetters]
+    [isChallengeActive, isSettingsActive, currentRow, isFinished, keys, dispatch, numberOfLetters],
   );
 
   return {

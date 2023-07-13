@@ -1,4 +1,4 @@
-import { IconCirclePlus, IconSettings, IconMoon, IconSun } from "@tabler/icons";
+import { IconCirclePlus, IconSettings, IconMoon, IconSun } from "@tabler/icons-react";
 import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
 import { useAppDispatch } from "store/hooks";

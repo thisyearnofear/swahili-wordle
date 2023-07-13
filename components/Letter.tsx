@@ -39,22 +39,25 @@ export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
       setTimeout(() => animateKey({ element, className: check.keys[i].class, time }), time * i);
     });
 
-    setTimeout(() => {
-      check.keys.forEach((item) => {
-        const keyboardRow = document.querySelector(`.Game-keyboard-button[data-key="${item.key.toLowerCase()}"]`);
-        if (!keyboardRow) return;
+    setTimeout(
+      () => {
+        check.keys.forEach((item) => {
+          const keyboardRow = document.querySelector(`.Game-keyboard-button[data-key="${item.key.toLowerCase()}"]`);
+          if (!keyboardRow) return;
 
-        const contains = (token: string) => keyboardRow.classList.contains(token);
-        if (contains("letter-correct")) return;
-        if (contains(item.class)) return;
-        if (contains("letter-elsewhere") && item.class !== "letter-correct") return;
+          const contains = (token: string) => keyboardRow.classList.contains(token);
+          if (contains("letter-correct")) return;
+          if (contains(item.class)) return;
+          if (contains("letter-elsewhere") && item.class !== "letter-correct") return;
 
-        animateKey({ element: keyboardRow, className: item.class, time });
-      });
+          animateKey({ element: keyboardRow, className: item.class, time });
+        });
 
-      if (didPlayerWin) return dispatch(setGameIs("won"));
-      if (rowId === 5) dispatch(setGameIs("lost"));
-    }, time * letters.length + 1);
+        if (didPlayerWin) return dispatch(setGameIs("won"));
+        if (rowId === 5) dispatch(setGameIs("lost"));
+      },
+      time * letters.length + 1,
+    );
   }, [shouldCheck, keys, word, dispatch, rowId, words]);
 
   return (

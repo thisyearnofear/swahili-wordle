@@ -1,4 +1,4 @@
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 import { useTranslation } from "hooks/use-translations";
 import { useRef } from "react";
 
