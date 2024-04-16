@@ -6,6 +6,7 @@ import { getCookie } from "cookies-next";
 import { store } from "store/store";
 import { Footer } from "components/Footer";
 import { setNumberOfLetters } from "store/appSlice";
+import { MontserratFont, OpenSansFont } from "utils/fonts";
 import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { useTranslation } from "hooks/use-translations";
 
@@ -27,7 +28,7 @@ export default function App({
         <meta name="description" content={translation.description} />
       </Head>
       <Provider store={store}>
-        <div className="App">
+        <div className={`App ${MontserratFont.variable} ${OpenSansFont.variable}`}>
           <Component {...pageProps} colorScheme={colorScheme} />
           <Footer />
         </div>
