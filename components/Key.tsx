@@ -1,11 +1,11 @@
-import type { TablerIconsProps } from "@tabler/icons-react";
+import type { Icon } from "@tabler/icons-react";
 import { useGame } from "hooks/use-game";
 
 export interface Key {
   key: string;
   className: string;
   label: string;
-  icon?: (props: TablerIconsProps) => JSX.Element;
+  icon?: React.FC<React.ComponentPropsWithoutRef<Icon>>;
 }
 
 export interface KeyRowProps extends React.HTMLProps<HTMLDivElement> {
