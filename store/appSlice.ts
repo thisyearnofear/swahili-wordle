@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { resetGame } from "utils/reset-game";
 import { createInitialState, createSetState, restartGameAction, type RootState } from "utils/store";
 
@@ -46,52 +46,77 @@ export const {
   setNumberOfLetters,
 } = appSlice.actions;
 
-export const letterSelector = ({ currentRow, word, words, numberOfLetters }: RootState) => ({
-  currentRow,
-  word,
-  words,
-  numberOfLetters,
-});
+const defaultSelector = <T>(state: T) => state;
 
-export const panelSelector = ({ gameIs, keys, modal, isChallengeMode }: RootState) => ({
-  gameIs,
-  keys,
-  modal,
-  isChallengeMode,
-});
+export const letterSelector = createSelector(
+  ({ currentRow, word, words, numberOfLetters }: RootState) => ({
+    currentRow,
+    word,
+    words,
+    numberOfLetters,
+  }),
+  defaultSelector,
+);
 
-export const stateSelector = ({ gameIs, word, isChallengeMode }: RootState) => ({ gameIs, word, isChallengeMode });
+export const panelSelector = createSelector(
+  ({ gameIs, keys, modal, isChallengeMode }: RootState) => ({
+    gameIs,
+    keys,
+    modal,
+    isChallengeMode,
+  }),
+  defaultSelector,
+);
 
-export const gameSelector = ({ backspace, enter }: RootState) => ({ backspace, enter });
+export const stateSelector = createSelector(
+  ({ gameIs, word, isChallengeMode }: RootState) => ({ gameIs, word, isChallengeMode }),
+  defaultSelector,
+);
 
-export const gameHookSelector = ({
-  backspace,
-  currentRow,
-  enter,
-  gameIs,
-  keys,
-  words,
-  numberOfLetters,
-  isChallengeActive,
-  isSettingsActive,
-}: RootState) => {
-  return {
+export const gameSelector = createSelector(
+  ({ backspace, enter }: RootState) => ({ backspace, enter }),
+  defaultSelector,
+);
+
+export const gameHookSelector = createSelector(
+  ({
     backspace,
     currentRow,
     enter,
+    gameIs,
     keys,
-    isFinished: gameIs !== "playing",
     words,
     numberOfLetters,
     isChallengeActive,
     isSettingsActive,
-  };
-};
+  }: RootState) => {
+    return {
+      backspace,
+      currentRow,
+      enter,
+      keys,
+      gameIs,
+      words,
+      numberOfLetters,
+      isChallengeActive,
+      isSettingsActive,
+    };
+  },
+  (state) => ({ ...state, isFinished: state.gameIs !== "playing" }),
+);
 
-export const settingsSelector = ({ isChallengeMode, isSettingsActive, numberOfLetters }: RootState) => ({
-  isChallengeMode,
-  isSettingsActive,
-  numberOfLetters,
-});
+export const settingsSelector = createSelector(
+  ({ isChallengeMode, isSettingsActive, numberOfLetters }: RootState) => ({
+    isChallengeMode,
+    isSettingsActive,
+    numberOfLetters,
+  }),
+  defaultSelector,
+);
+
+export const challengeSelector = createSelector(
+  ({ isChallengeActive, words }: RootState) => ({ isChallengeActive, words }),
+  defaultSelector,
+);
 
 export default appSlice.reducer;

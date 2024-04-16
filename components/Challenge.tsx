@@ -2,7 +2,7 @@ import { useLocale } from "hooks/use-locale";
 import { useTranslation } from "hooks/use-translations";
 import { encode } from "js-base64";
 import { useRef, useState } from "react";
-import { setChallengeActive } from "store/appSlice";
+import { challengeSelector, setChallengeActive } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { getChallengeModeWord } from "utils/store";
 import { Modal } from "./Game/Modal";
@@ -11,7 +11,7 @@ export function Challenge() {
   const { locale } = useLocale();
   const translation = useTranslation();
   const dispatch = useAppDispatch();
-  const { isChallengeActive, words } = useAppSelector(({ isChallengeActive, words }) => ({ isChallengeActive, words }));
+  const { isChallengeActive, words } = useAppSelector(challengeSelector);
   const [value, setValue] = useState("");
   const validRef = useRef<HTMLDivElement>(null);
   const invalidRef = useRef<HTMLDivElement>(null);
