@@ -64,7 +64,12 @@ export function useGame() {
 
   const addNewKeyWithEvent = useCallback(
     (e: WindowEventMap["keydown"]) => {
-      if (isChallengeActive || isSettingsActive) return;
+      if (
+        (document.activeElement !== document.body && document.activeElement != null) ||
+        isChallengeActive ||
+        isSettingsActive
+      )
+        return;
 
       const key = e.key.toLowerCase();
       if (isFinished || currentRow === numberOfAttempts || e.altKey || e.ctrlKey || e.metaKey) return;
