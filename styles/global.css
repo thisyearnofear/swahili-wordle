@@ -1168,3 +1168,9 @@ html.dark .lang_checkbox_disabled .check_text {
   color: #5e627f;
   background: #2c2f41;
 }
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px var(--color) solid;
+  outline-offset: 2px;
+}

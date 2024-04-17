@@ -21,9 +21,8 @@ export function KeyboardRow({ keys }: KeyRowProps) {
         const isString = typeof item === "string";
 
         return (
-          <div
+          <button
             key={isString ? item : item.key}
-            tabIndex={-1}
             className={`Game-keyboard-button ${isString ? "" : item.className}`}
             onClick={() => {
               const key = (isString ? item : item.key).toLowerCase();
@@ -34,7 +33,7 @@ export function KeyboardRow({ keys }: KeyRowProps) {
             data-key={isString ? item : item.key}
           >
             {isString ? item : item.icon ? <item.icon size={22} /> : item.label}
-          </div>
+          </button>
         );
       })}
     </div>
