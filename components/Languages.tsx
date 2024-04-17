@@ -38,7 +38,6 @@ export function Languages() {
             locale={lang.locale}
             href="/"
             className={`lang_checkbox${router.locale === lang.locale ? " lang_checkbox_selected" : ""}`}
-            target="_blank"
             rel="noreferrer"
           >
             <label className="label_check">
