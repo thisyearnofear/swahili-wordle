@@ -10,11 +10,15 @@ export const appSlice = createSlice({
       const { words, encodedChallengeModeWord } = action.payload;
       return restartGameAction(state, { words, encodedChallengeModeWord });
     },
-    setNumberOfLetter: (state, action: PayloadAction<number>) => {
+    setSettings: (state, action: PayloadAction<{ numberOfLetters?: number; numberOfAttempts?: number }>) => {
       resetGame();
-      return restartGameAction(state, { numberOfLetters: action.payload });
+      return restartGameAction(state, {
+        numberOfLetters: action.payload.numberOfLetters ?? state.numberOfLetters,
+        numberOfAttempts: action.payload.numberOfAttempts ?? state.numberOfAttempts,
+      });
     },
     restartGame: (state, action: PayloadAction<number | undefined>) => {
+      resetGame();
       return restartGameAction(state, { numberOfLetters: action.payload });
     },
     setCurrentKeys: createSetState("keys", true),
@@ -27,6 +31,7 @@ export const appSlice = createSlice({
     setLanguagesActive: createSetState("isLanguagesActive"),
     setChallengeActive: createSetState("isChallengeActive"),
     setNumberOfLetters: createSetState("numberOfLetters"),
+    setNumberOfAttempts: createSetState("numberOfAttempts"),
   },
 });
 
@@ -42,43 +47,48 @@ export const {
   setSettingsActive,
   setLanguagesActive,
   setChallengeActive,
-  setNumberOfLetter,
+  setSettings,
   setNumberOfLetters,
+  setNumberOfAttempts,
 } = appSlice.actions;
 
 const defaultSelector = <T>(state: T) => state;
 
 export const letterSelector = createSelector(
-  ({ currentRow, word, words, numberOfLetters }: RootState) => ({
+  defaultSelector,
+  ({ currentRow, word, words, numberOfLetters, numberOfAttempts }: RootState) => ({
     currentRow,
     word,
     words,
     numberOfLetters,
+    numberOfAttempts,
   }),
-  defaultSelector,
 );
 
 export const panelSelector = createSelector(
-  ({ gameIs, keys, modal, isChallengeMode }: RootState) => ({
+  defaultSelector,
+  ({ gameIs, keys, modal, numberOfAttempts, isChallengeMode }: RootState) => ({
     gameIs,
     keys,
     modal,
     isChallengeMode,
+    numberOfAttempts,
   }),
-  defaultSelector,
 );
 
-export const stateSelector = createSelector(
-  ({ gameIs, word, isChallengeMode }: RootState) => ({ gameIs, word, isChallengeMode }),
-  defaultSelector,
-);
+export const stateSelector = createSelector(defaultSelector, ({ gameIs, word, isChallengeMode }: RootState) => ({
+  gameIs,
+  word,
+  isChallengeMode,
+}));
 
-export const gameSelector = createSelector(
-  ({ backspace, enter }: RootState) => ({ backspace, enter }),
-  defaultSelector,
-);
+export const gameSelector = createSelector(defaultSelector, ({ backspace, enter }: RootState) => ({
+  backspace,
+  enter,
+}));
 
 export const gameHookSelector = createSelector(
+  defaultSelector,
   ({
     backspace,
     currentRow,
@@ -87,6 +97,7 @@ export const gameHookSelector = createSelector(
     keys,
     words,
     numberOfLetters,
+    numberOfAttempts,
     isChallengeActive,
     isSettingsActive,
   }: RootState) => {
@@ -98,25 +109,32 @@ export const gameHookSelector = createSelector(
       gameIs,
       words,
       numberOfLetters,
+      numberOfAttempts,
       isChallengeActive,
       isSettingsActive,
+      isFinished: gameIs !== "playing",
     };
   },
-  (state) => ({ ...state, isFinished: state.gameIs !== "playing" }),
 );
 
 export const settingsSelector = createSelector(
-  ({ isChallengeMode, isSettingsActive, numberOfLetters }: RootState) => ({
+  defaultSelector,
+  ({ isChallengeMode, isSettingsActive, numberOfLetters, numberOfAttempts }: RootState) => ({
     isChallengeMode,
     isSettingsActive,
     numberOfLetters,
+    numberOfAttempts,
   }),
-  defaultSelector,
 );
 
-export const challengeSelector = createSelector(
-  ({ isChallengeActive, words }: RootState) => ({ isChallengeActive, words }),
-  defaultSelector,
-);
+export const headerSelector = createSelector(defaultSelector, ({ gameIs, currentRow }: RootState) => ({
+  gameIs,
+  startPlaying: currentRow > 0,
+}));
+
+export const challengeSelector = createSelector(defaultSelector, ({ isChallengeActive, words }: RootState) => ({
+  isChallengeActive,
+  words,
+}));
 
 export default appSlice.reducer;

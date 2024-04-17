@@ -11,7 +11,7 @@ export interface LetterRowProps extends React.HTMLProps<HTMLDivElement> {
 
 export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
   const dispatch = useAppDispatch();
-  const { currentRow, word, words, numberOfLetters } = useAppSelector(letterSelector);
+  const { currentRow, word, words, numberOfLetters, numberOfAttempts } = useAppSelector(letterSelector);
   const shouldCheck = rowId === currentRow - 1;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -54,11 +54,11 @@ export function LetterRow({ rowId, keys, ...props }: LetterRowProps) {
         });
 
         if (didPlayerWin) return dispatch(setGameIs("won"));
-        if (rowId === 5) dispatch(setGameIs("lost"));
+        if (rowId === numberOfAttempts - 1) dispatch(setGameIs("lost"));
       },
       time * letters.length + 1,
     );
-  }, [shouldCheck, keys, word, dispatch, rowId, words]);
+  }, [shouldCheck, keys, word, dispatch, rowId, words, numberOfAttempts]);
 
   return (
     <div className="Row" ref={ref} {...props}>

@@ -1,10 +1,9 @@
 import { decodeWord } from "utils/check-word";
-import { resetGame } from "utils/reset-game";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { restartGame, stateSelector } from "store/appSlice";
 import { Modal } from "./Modal";
 import { getCookie } from "cookies-next";
-import { getNumberOfLetters, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
+import { DEFAULT_NUMBER_OF_LETTERS, getNumberFromCookie, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { useRouter } from "next/router";
 import { useTranslation } from "hooks/use-translations";
 
@@ -43,10 +42,9 @@ export function GameState() {
               if (isChallengeMode) void router.replace("/");
 
               const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY);
-              const numberOfLetters = getNumberOfLetters(numberOfLettersCookie);
+              const numberOfLetters = getNumberFromCookie(numberOfLettersCookie, DEFAULT_NUMBER_OF_LETTERS);
 
               dispatch(restartGame(numberOfLetters));
-              resetGame();
             }}
           >
             {isChallengeMode ? translation.new_game : translation.restart}

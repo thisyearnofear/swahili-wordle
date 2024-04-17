@@ -3,18 +3,17 @@ import { KeyboardRow } from "components/Key";
 import { LetterRow } from "components/Letter";
 import { useAppSelector } from "store/hooks";
 import { panelSelector } from "store/appSlice";
-import { MAX_ROW_NUMBER } from "hooks/use-game";
 import { useTranslation } from "hooks/use-translations";
 
 export function GamePanel() {
   const translation = useTranslation();
 
-  const { gameIs, keys, modal, isChallengeMode } = useAppSelector(panelSelector);
+  const { gameIs, keys, modal, numberOfAttempts, isChallengeMode } = useAppSelector(panelSelector);
 
   return (
-    <div>
+    <>
       <div className="Game-Rows">
-        {[...Array(MAX_ROW_NUMBER)].map((_, i) => {
+        {[...Array(numberOfAttempts)].map((_, i) => {
           const key = i;
           return <LetterRow rowId={i} keys={keys[key]} key={i} />;
         })}
@@ -39,6 +38,6 @@ export function GamePanel() {
           {modal.content}
         </div>
       )}
-    </div>
+    </>
   );
 }

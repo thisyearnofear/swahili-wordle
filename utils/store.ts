@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { decode, encode } from "js-base64";
-import { DEFAULT_NUMBER_OF_LETTERS } from "./numbers-of-letters";
+import { DEFAULT_NUMBER_OF_ATTEMPTS, DEFAULT_NUMBER_OF_LETTERS } from "./numbers-of-letters";
 
 export interface RootState {
   isSettingsActive: boolean;
@@ -8,6 +8,7 @@ export interface RootState {
   isChallengeMode: boolean;
   isChallengeActive: boolean;
   numberOfLetters: number;
+  numberOfAttempts: number;
   backspace: boolean;
   currentRow: number;
   enter: boolean;
@@ -24,6 +25,7 @@ export const createInitialState = (): RootState => ({
   isChallengeActive: false,
   isChallengeMode: false,
   numberOfLetters: DEFAULT_NUMBER_OF_LETTERS,
+  numberOfAttempts: DEFAULT_NUMBER_OF_ATTEMPTS,
   backspace: false,
   currentRow: 0,
   enter: false,
@@ -70,19 +72,27 @@ export const getChallengeModeWord = (
 interface Options {
   encodedChallengeModeWord?: string;
   numberOfLetters?: number;
+  numberOfAttempts?: number;
   words?: string[];
 }
 
 export const restartGameAction = (state: RootState, options?: Options): RootState => {
-  const { numberOfLetters = state.numberOfLetters, words = state.words, encodedChallengeModeWord } = options ?? {};
+  const {
+    numberOfLetters = state.numberOfLetters,
+    numberOfAttempts = state.numberOfAttempts,
+    words = state.words,
+    encodedChallengeModeWord = state.isChallengeMode ? state.word : undefined,
+  } = options ?? {};
 
   const challengeModeWord = getChallengeModeWord(words, encodedChallengeModeWord);
+  const validChallengeMode = challengeModeWord.exist && numberOfLetters === state.numberOfLetters;
 
   return {
     ...createInitialState(),
-    isChallengeMode: challengeModeWord.exist,
+    isChallengeMode: validChallengeMode,
     gameIs: "playing",
-    numberOfLetters: challengeModeWord.exist ? challengeModeWord.challenge.length : numberOfLetters,
+    numberOfLetters: validChallengeMode ? challengeModeWord.challenge.length : numberOfLetters,
+    numberOfAttempts,
     word: challengeModeWord.exist ? challengeModeWord.encodedWord : getRandomWord(getWords(words, numberOfLetters)),
     words,
   };

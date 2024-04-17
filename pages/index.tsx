@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useWindowEvent } from "hooks/use-window-event";
@@ -43,19 +44,20 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
     };
     start().catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.locale]);
 
   useWindowEvent("keydown", addNewKeyWithEvent);
 
   return (
     <>
+      <Head>
+        <link rel="manifest" href={router.locale === "es" ? "/manifest_es.json" : "/manifest.json"} />
+      </Head>
       <div className="App-container">
+        <Header colorScheme={colorScheme} />
         <div className="Game">
-          <Header colorScheme={colorScheme} />
-          <div className="Game">
-            <GamePanel />
-            <GameState />
-          </div>
+          <GamePanel />
+          <GameState />
         </div>
       </div>
       <Settings />

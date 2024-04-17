@@ -19,6 +19,8 @@ export interface Translation {
   not_found: string;
   number_of_letters_description: string;
   number_of_letters_title: string;
+  number_of_attempts_description: string;
+  number_of_attempts_title: string;
   placeholder_your_word: string;
   restart: string;
   select_a_game_dictionary: string;
