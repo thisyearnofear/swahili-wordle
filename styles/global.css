@@ -371,9 +371,6 @@ body {
     height: 48px;
     font-size: 22px;
   }
-  .Game-keyboard {
-    margin-top: 34px !important;
-  }
   .Game-keyboard-button:active {
     background: #9fa8c0;
   }
