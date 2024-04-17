@@ -1,8 +1,15 @@
-import { IconCirclePlus, IconSettings, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconCirclePlus, IconSettings, IconMoon, IconSun, IconRefresh } from "@tabler/icons-react";
 import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
-import { useAppDispatch } from "store/hooks";
-import { setChallengeActive, setLanguagesActive, setSettingsActive } from "store/appSlice";
+import { useAppDispatch, useAppSelector } from "store/hooks";
+import {
+  headerSelector,
+  restartGame,
+  setChallengeActive,
+  setGameIs,
+  setLanguagesActive,
+  setSettingsActive,
+} from "store/appSlice";
 import { useLocale } from "hooks/use-locale";
 import { useTranslation } from "hooks/use-translations";
 import { EnglishUSFlag, SpanishFlag } from "./flags";
@@ -13,6 +20,8 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const translation = useTranslation();
 
   const [theme, setTheme] = useState<"dark" | "light">(colorScheme);
+
+  const { gameIs, startPlaying } = useAppSelector(headerSelector);
 
   const toggleColorTheme = useCallback(() => {
     setTheme((theme) => {
@@ -39,6 +48,27 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
         >
           <IconCirclePlus width="20" height="20" />
         </button>
+        {startPlaying && (
+          <button
+            type="button"
+            className="generator restart_btn"
+            style={{ display: "block" }}
+            onClick={() => {
+              if (gameIs === "playing") {
+                dispatch(setGameIs("lost"));
+              } else {
+                dispatch(restartGame());
+              }
+            }}
+            aria-label={gameIs === "playing" ? translation.give_up : translation.restart}
+          >
+            {gameIs === "playing" ? (
+              <span className="give-up">{translation.give_up}</span>
+            ) : (
+              <IconRefresh width="20" height="20" />
+            )}
+          </button>
+        )}
         <div className="buttons flex">
           <button
             type="button"
