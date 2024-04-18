@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { decodeWord } from "utils/check-word";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { restartGame, setIsChallengeMode, stateSelector } from "store/appSlice";
@@ -6,6 +7,8 @@ import { getCookie } from "cookies-next";
 import { DEFAULT_NUMBER_OF_LETTERS, getNumberFromCookie, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
 import { useRouter } from "next/router";
 import { useTranslation } from "hooks/use-translations";
+
+const Confetti = dynamic(() => import("../Confetti").then((m) => m.Confetti), { ssr: false });
 
 export function GameState() {
   const router = useRouter();
@@ -54,6 +57,7 @@ export function GameState() {
           </button>
         </div>
       </div>
+      {gameIs === "won" && <Confetti />}
     </Modal>
   );
 }
