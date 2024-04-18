@@ -34,10 +34,15 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
 
   useEffect(() => {
     const start = async () => {
+      const timeout = setTimeout(() => {
+        activeModal(translation.loading, 1000 * 60);
+      }, 500);
+
       const words = await getWords(router.locale ?? "en");
       const challenge = router.query.challenge;
       const encodedChallengeModeWord = typeof challenge === "string" ? challenge : undefined;
 
+      clearTimeout(timeout);
       dispatch(startGame({ words, encodedChallengeModeWord }));
       resetGame();
       activeModal(translation.make_your_first_guess, 1500);

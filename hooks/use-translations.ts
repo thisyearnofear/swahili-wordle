@@ -12,6 +12,7 @@ export interface Translation {
   dictionary: string;
   give_up: string;
   link_copied: string;
+  loading: string;
   mainpage: string;
   make_your_first_guess: string;
   new_game: string;
