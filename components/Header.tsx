@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { IconCirclePlus, IconSettings, IconMoon, IconSun, IconRefresh } from "@tabler/icons-react";
 import { useCallback, useState } from "react";
 import { setCookie } from "cookies-next";
@@ -7,6 +8,7 @@ import {
   restartGame,
   setChallengeActive,
   setGameIs,
+  setIsChallengeMode,
   setLanguagesActive,
   setSettingsActive,
 } from "store/appSlice";
@@ -16,12 +18,13 @@ import { EnglishUSFlag, SpanishFlag } from "./flags";
 
 export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { locale } = useLocale();
   const translation = useTranslation();
 
   const [theme, setTheme] = useState<"dark" | "light">(colorScheme);
 
-  const { gameIs, startPlaying } = useAppSelector(headerSelector);
+  const { gameIs, startPlaying, isChallengeMode } = useAppSelector(headerSelector);
 
   const toggleColorTheme = useCallback(() => {
     setTheme((theme) => {
@@ -55,10 +58,15 @@ export function Header({ colorScheme }: { colorScheme: "light" | "dark" }) {
             style={{ display: "block" }}
             onClick={() => {
               if (gameIs === "playing") {
-                dispatch(setGameIs("lost"));
-              } else {
-                dispatch(restartGame());
+                return dispatch(setGameIs("lost"));
               }
+
+              if (isChallengeMode) {
+                dispatch(setIsChallengeMode(false));
+                void router.replace("/");
+              }
+
+              dispatch(restartGame());
             }}
             aria-label={gameIs === "playing" ? translation.give_up : translation.restart}
           >

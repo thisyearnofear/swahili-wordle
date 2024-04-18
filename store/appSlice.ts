@@ -30,6 +30,7 @@ export const appSlice = createSlice({
     setSettingsActive: createSetState("isSettingsActive"),
     setLanguagesActive: createSetState("isLanguagesActive"),
     setChallengeActive: createSetState("isChallengeActive"),
+    setIsChallengeMode: createSetState("isChallengeMode"),
     setNumberOfLetters: createSetState("numberOfLetters"),
     setNumberOfAttempts: createSetState("numberOfAttempts"),
   },
@@ -47,6 +48,7 @@ export const {
   setSettingsActive,
   setLanguagesActive,
   setChallengeActive,
+  setIsChallengeMode,
   setSettings,
   setNumberOfLetters,
   setNumberOfAttempts,
@@ -127,8 +129,9 @@ export const settingsSelector = createSelector(
   }),
 );
 
-export const headerSelector = createSelector(defaultSelector, ({ gameIs, currentRow }: RootState) => ({
+export const headerSelector = createSelector(defaultSelector, ({ gameIs, currentRow, isChallengeMode }: RootState) => ({
   gameIs,
+  isChallengeMode,
   startPlaying: currentRow > 0,
 }));
 

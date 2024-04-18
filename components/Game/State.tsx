@@ -1,6 +1,6 @@
 import { decodeWord } from "utils/check-word";
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { restartGame, stateSelector } from "store/appSlice";
+import { restartGame, setIsChallengeMode, stateSelector } from "store/appSlice";
 import { Modal } from "./Modal";
 import { getCookie } from "cookies-next";
 import { DEFAULT_NUMBER_OF_LETTERS, getNumberFromCookie, NUMBER_OF_LETTERS_KEY } from "utils/numbers-of-letters";
@@ -39,7 +39,10 @@ export function GameState() {
           <button
             type="button"
             onClick={() => {
-              if (isChallengeMode) void router.replace("/");
+              if (isChallengeMode) {
+                void router.replace("/");
+                dispatch(setIsChallengeMode(false));
+              }
 
               const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY);
               const numberOfLetters = getNumberFromCookie(numberOfLettersCookie, DEFAULT_NUMBER_OF_LETTERS);
