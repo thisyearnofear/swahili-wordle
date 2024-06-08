@@ -35,6 +35,7 @@ export default function App({
         <title>{translation.title}</title>
         <link rel="icon" sizes="512x512" href="/favicon.png" type="image/png" />
         <meta name="description" content={translation.description} />
+        <meta name="keywords" content={translation.keywords} />
         <meta name="theme-color" content="#000000" />
         <link rel="shortcut icon" href="/icons/favicon-32x32.png" sizes="32x32" type="image/png" />
         <link rel="shortcut icon" href="/icons/favicon-192x192.png" sizes="192x192" type="image/png" />

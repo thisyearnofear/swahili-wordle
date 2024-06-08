@@ -4,6 +4,7 @@ import { useLocale } from "./use-locale";
 export interface Translation {
   title: string;
   description: string;
+  keywords: string;
   button_copy_link_to_this_word: string;
   button_copy_link: string;
   close: string;
