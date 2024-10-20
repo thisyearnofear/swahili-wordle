@@ -6,15 +6,15 @@ export function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <Link href="/" className="footer__logo">
-            <Image width={227.67} height={22} src="/logo.svg" alt="Wordle Game - Play Unlimited" priority />
+          <Link href="https://storymojaafrica.co.ke/" className="footer__logo">
+            <Image width={1200} height={200} src="/logo.svg" alt="STORMOJA" priority />
           </Link>
         </div>
         <div className="footer__bottom">
           <div className="footer__copir">
             <span>
-              <a href="https://github.com/iswilljr" target="_blank" rel="noreferrer">
-                iswilljr
+              <a href="https://bit.ly/papaspotify" target="_blank" rel="noreferrer">
+                papa
               </a>
             </span>{" "}
             © {new Date().getFullYear()}

@@ -40,6 +40,7 @@ export interface Translation {
 
 export function useTranslation(): Translation {
   const { locale } = useLocale();
+  // sourcery skip: inline-immediately-returned-variable
   const lang = require(`public/i18n/${locale}.json`);
   return lang;
 }

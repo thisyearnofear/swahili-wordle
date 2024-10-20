@@ -17,6 +17,13 @@ export function GameState() {
   const { gameIs, word, isChallengeMode } = useAppSelector(stateSelector);
   const wordToGuess = decodeWord(word);
 
+  const getDefinitionUrl = (word: string) => {
+    if (router.locale === "sw") {
+      return `https://swahili-dictionary.com/swahili-english/${word}_${word}`;
+    }
+    return `https://wordlegame.org/dictionary?q=${word}+definition`;
+  };
+
   return (
     <Modal
       active={gameIs !== "playing"}
@@ -29,12 +36,7 @@ export function GameState() {
           <span>{gameIs !== "playing" && wordToGuess}</span>
         </div>
         {gameIs !== "playing" && (
-          <a
-            className="definition"
-            target="_blank"
-            rel="noreferrer"
-            href={`https://wordlegame.org/dictionary?q=${wordToGuess}+definition`}
-          >
+          <a className="definition" target="_blank" rel="noreferrer" href={getDefinitionUrl(wordToGuess)}>
             {translation.what_does_it_mean}
           </a>
         )}

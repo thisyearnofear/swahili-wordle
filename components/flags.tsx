@@ -201,6 +201,23 @@ export function SpanishFlag() {
   );
 }
 
+export const KenyanFlag = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+    <rect width="900" height="600" fill="#fff" />
+    <rect width="900" height="180" fill="#000" />
+    <rect y="180" width="900" height="240" fill="#b00" />
+    <rect y="420" width="900" height="180" fill="#006600" />
+    <path
+      d="M450,300 l-217.3,158.1 83,-255.7 -217.3,-158.1 268.6,0 83,-255.7 83,255.7 268.6,0 -217.3,158.1 83,255.7z"
+      fill="#fff"
+    />
+    <path
+      d="M450,300 l-193.3,140.5 73.9,-227.3 -193.3,-140.5 238.8,0 73.9,-227.3 73.9,227.3 238.8,0 -193.3,140.5 73.9,227.3z"
+      fill="#000"
+    />
+  </svg>
+);
+
 export function EnglishUSFlag() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 24">

@@ -3,12 +3,13 @@ import { useTranslation } from "hooks/use-translations";
 import { useRouter } from "next/router";
 import { setLanguagesActive } from "store/appSlice";
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { EnglishUSFlag, SpanishFlag } from "./flags";
+import { EnglishUSFlag, SpanishFlag, KenyanFlag } from "./flags";
 import { Modal } from "./Game/Modal";
 
 const langs = [
   { locale: "en", label: "English (US)", icon: EnglishUSFlag },
   { locale: "es", label: "Español", icon: SpanishFlag },
+  { locale: "sw", label: "Kiswahili", icon: KenyanFlag },
 ];
 
 export function Languages() {

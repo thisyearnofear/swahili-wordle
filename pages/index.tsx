@@ -48,15 +48,30 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
       activeModal(translation.make_your_first_guess, 1500);
     };
     start().catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale]);
+  }, [
+    router.locale,
+    router.query.challenge,
+    dispatch,
+    activeModal,
+    translation.loading,
+    translation.make_your_first_guess,
+  ]);
 
   useWindowEvent("keydown", addNewKeyWithEvent);
 
   return (
     <>
       <Head>
-        <link rel="manifest" href={router.locale === "es" ? "/manifest_es.json" : "/manifest.json"} />
+        <link
+          rel="manifest"
+          href={
+            router.locale === "es"
+              ? "/manifest_es.json"
+              : router.locale === "sw"
+                ? "/manifest_sw.json"
+                : "/manifest.json"
+          }
+        />
       </Head>
       <div className="App-container">
         <Header colorScheme={colorScheme} />

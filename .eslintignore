@@ -48,3 +48,6 @@ next-env.d.ts
 
 # words data
 public
+
+# next.config.js
+next.config.js

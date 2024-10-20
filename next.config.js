@@ -6,7 +6,7 @@ const withPWA = require("next-pwa")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   i18n: {
-    locales: ["en", "es"],
+    locales: ["en", "es", "sw"],
     defaultLocale: "en",
   },
 };
