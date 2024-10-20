@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container">
         <div className="footer__top">
           <Link href="https://storymojaafrica.co.ke/" className="footer__logo">
-            <Image width={1200} height={200} src="/logo.svg" alt="STORMOJA" priority />
+            <Image width={1200} height={200} src="/logo.svg" alt="STORYMOJA" priority />
           </Link>
         </div>
         <div className="footer__bottom">

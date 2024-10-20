@@ -6,7 +6,7 @@
     </linearGradient>
   </defs>
   
-  <text x="20" y="160" font-family="Arial, sans-serif" font-size="160" font-weight="bold" fill="url(#grad)">STORMOJA</text>
+  <text x="20" y="160" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="url(#grad)">STORYMOJA</text>
   
   <text x="1040" y="160" font-size="120" fill="#FF69B4">🦛</text>
   
