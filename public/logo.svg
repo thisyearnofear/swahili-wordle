@@ -6,10 +6,8 @@
     </linearGradient>
   </defs>
   
-  <text x="20" y="160" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="url(#grad)">STORYMOJA</text>
-  
-  <text x="1040" y="160" font-size="120" fill="#FF69B4">🦛</text>
-  
+  <text x="600" y="160" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="url(#grad)" text-anchor="middle">PAPA</text>
+    
   <g>
     <circle cx="600" cy="100" r="5" fill="#FF69B4">
       <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" begin="0s" />

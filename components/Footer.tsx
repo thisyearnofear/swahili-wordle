@@ -6,18 +6,17 @@ export function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <Link href="https://storymojaafrica.co.ke/" className="footer__logo">
-            <Image width={1200} height={200} src="/logo.svg" alt="STORYMOJA" priority />
+          <Link href="https://warpcast.com/papa" className="footer__logo">
+            <Image width={1200} height={200} src="/logo.svg" alt="Papa" priority />
           </Link>
         </div>
         <div className="footer__bottom">
           <div className="footer__copir">
             <span>
               <a href="https://bit.ly/papaspotify" target="_blank" rel="noreferrer">
-                papa
+                🎧
               </a>
             </span>{" "}
-            © {new Date().getFullYear()}
           </div>
         </div>
       </div>
