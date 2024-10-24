@@ -16,6 +16,7 @@ import {
   NUMBER_OF_LETTERS_KEY,
 } from "utils/numbers-of-letters";
 import { useTranslation } from "hooks/use-translations";
+import ContextProvider from "../context";
 
 export default function App({
   Component,
@@ -46,16 +47,19 @@ export default function App({
         <link rel="apple-touch-icon" sizes="144x144" type="image/png" href="/icons/apple-touch-icon-152x152.png" />
       </Head>
       <Provider store={store}>
-        <div className={`App ${MontserratFont.variable} ${OpenSansFont.variable}`}>
-          <Component {...pageProps} colorScheme={colorScheme} />
-          <Footer />
-        </div>
+        <ContextProvider cookies={getCookie("cookie")}>
+          {" "}
+          {/* Wrap your app with ContextProvider */}
+          <div className={`App ${MontserratFont.variable} ${OpenSansFont.variable}`}>
+            <Component {...pageProps} colorScheme={colorScheme} />
+            <Footer />
+          </div>
+        </ContextProvider>
       </Provider>
       <Analytics />
     </>
   );
 }
-
 App.getInitialProps = ({ ctx }: AppContext) => {
   const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY, ctx);
   const numberOfAttemptsCookie = getCookie(NUMBER_OF_ATTEMPTS_KEY, ctx);

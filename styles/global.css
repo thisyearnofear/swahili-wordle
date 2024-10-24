@@ -47,6 +47,16 @@ html {
   color-scheme: dark;
 }
 
+w3m-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px; /* Adjust the top value as needed */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .App {
   padding: 10px;
   --font_family: var(--montserrat-font), var(--open-sans-font), sans-serif;

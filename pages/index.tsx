@@ -14,6 +14,7 @@ import { Challenge } from "components/Challenge";
 import { useRouter } from "next/router";
 import { useTranslation } from "hooks/use-translations";
 import { Languages } from "components/Languages";
+import ConnectButton from "../components/ConnectButton";
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const router = useRouter();
@@ -83,6 +84,7 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
       <Settings />
       <Challenge />
       <Languages />
+      <ConnectButton />
     </>
   );
 }
