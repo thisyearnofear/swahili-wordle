@@ -21,6 +21,7 @@
     "@wagmi/core": "^2.14.1",
     "canvas-confetti": "1.9.2",
     "cookies-next": "4.1.1",
+    "gsap": "^3.12.5",
     "js-base64": "3.7.7",
     "networks": "link:@reown/appkit/networks",
     "next": "14.2.1",

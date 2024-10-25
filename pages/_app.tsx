@@ -17,6 +17,7 @@ import {
 } from "utils/numbers-of-letters";
 import { useTranslation } from "hooks/use-translations";
 import ContextProvider from "../context";
+import { useEffect } from "react";
 
 export default function App({
   Component,
@@ -29,6 +30,17 @@ export default function App({
 
   store.dispatch(setNumberOfLetters(numberOfLetters));
   store.dispatch(setNumberOfAttempts(numberOfAttempts));
+
+  useEffect(() => {
+    const updateScroll = () => {
+      const scrollPercentage = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      document.documentElement.style.setProperty("--scroll", `${scrollPercentage * 100}%`);
+      document.documentElement.style.setProperty("--bg-position", `0 ${scrollPercentage * 100}%`);
+    };
+
+    window.addEventListener("scroll", updateScroll);
+    return () => window.removeEventListener("scroll", updateScroll);
+  }, []);
 
   return (
     <>
@@ -46,10 +58,9 @@ export default function App({
         <link rel="apple-touch-icon" sizes="114x114" type="image/png" href="/icons/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="144x144" type="image/png" href="/icons/apple-touch-icon-152x152.png" />
       </Head>
+      <div className="scroll-progress" />
       <Provider store={store}>
         <ContextProvider cookies={getCookie("cookie")}>
-          {" "}
-          {/* Wrap your app with ContextProvider */}
           <div className={`App ${MontserratFont.variable} ${OpenSansFont.variable}`}>
             <Component {...pageProps} colorScheme={colorScheme} />
             <Footer />
@@ -60,6 +71,7 @@ export default function App({
     </>
   );
 }
+
 App.getInitialProps = ({ ctx }: AppContext) => {
   const numberOfLettersCookie = getCookie(NUMBER_OF_LETTERS_KEY, ctx);
   const numberOfAttemptsCookie = getCookie(NUMBER_OF_ATTEMPTS_KEY, ctx);

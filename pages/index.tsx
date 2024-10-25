@@ -15,6 +15,9 @@ import { useRouter } from "next/router";
 import { useTranslation } from "hooks/use-translations";
 import { Languages } from "components/Languages";
 import ConnectButton from "../components/ConnectButton";
+import dynamic from "next/dynamic";
+
+const OnChainWordle = dynamic(() => import("../components/OnchainWordle"), { ssr: true });
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const router = useRouter();
@@ -80,6 +83,7 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
           <GamePanel />
           <GameState />
         </div>
+        <OnChainWordle />
       </div>
       <Settings />
       <Challenge />

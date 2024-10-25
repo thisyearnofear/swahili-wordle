@@ -9,6 +9,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  --scroll: 0;
+  --bg-gradient: linear-gradient(to bottom, var(--bg2) 0%, var(--bg3) 50%, var(--bg4) 100%);
+  background-image: var(--bg-gradient);
+  background-size: 100% 300%;
+  background-position: 0 var(--scroll);
+  transition: background-position 0.3s ease;
 }
 :root {
   --color: #363e52;
@@ -76,6 +82,17 @@ body {
   text-rendering: optimizeLegibility;
   text-decoration-skip: objects;
 }
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, var(--color3) var(--scroll), transparent 0);
+  z-index: 9999;
+}
+
 .container {
   width: 1000px;
   max-width: 100%;
