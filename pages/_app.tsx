@@ -18,6 +18,7 @@ import {
 import { useTranslation } from "hooks/use-translations";
 import ContextProvider from "../context";
 import { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
 
 export default function App({
   Component,
@@ -40,6 +41,17 @@ export default function App({
 
     window.addEventListener("scroll", updateScroll);
     return () => window.removeEventListener("scroll", updateScroll);
+  }, []);
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
   }, []);
 
   return (

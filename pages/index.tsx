@@ -16,8 +16,9 @@ import { useTranslation } from "hooks/use-translations";
 import { Languages } from "components/Languages";
 import ConnectButton from "../components/ConnectButton";
 import dynamic from "next/dynamic";
+import ScrollingGrid from "components/ScrollingGrid";
 
-const OnChainWordle = dynamic(() => import("../components/OnchainWordle"), { ssr: true });
+const OnChainWordle = dynamic(() => import("components/OnchainWordle/OnchainWordle"), { ssr: true });
 
 export default function Game({ colorScheme }: { colorScheme: "light" | "dark" }) {
   const router = useRouter();
@@ -77,6 +78,7 @@ export default function Game({ colorScheme }: { colorScheme: "light" | "dark" })
           }
         />
       </Head>
+      <ScrollingGrid />
       <div className="App-container">
         <Header colorScheme={colorScheme} />
         <div className="Game">

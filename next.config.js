@@ -9,6 +9,7 @@ const nextConfig = {
     locales: ["en", "es", "sw"],
     defaultLocale: "en",
   },
+  transpilePackages: ["gsap"],
 };
 
 module.exports = withPWA(nextConfig);
